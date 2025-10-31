@@ -1,0 +1,1108 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\source\\TheWayOfCoherence\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\gateways\\btcpaymentggateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\gateways\\btcpaymentggateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\gateways\\rediscache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\gateways\\rediscache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\gateways\\stripepaymenthgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\gateways\\stripepaymenthgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\gateways\\emailnotifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\gateways\\emailnotifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\gateways\\aichatgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\gateways\\aichatgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\commands\\submitcontactmessagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\commands\\submitcontactmessagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\commands\\submitcontactmessagecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\commands\\submitcontactmessagecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\interfaces\\iuserprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\interfaces\\iuserprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\commands\\userprofileupdatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\commands\\userprofileupdatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\commands\\userprofilesignuphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\commands\\userprofilesignuphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\commands\\userprofileupdatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\commands\\userprofileupdatecommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\commands\\userprofilesignupcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\commands\\userprofilesignupcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\userprofile\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\userprofile\\userprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\queries\\listcontactmessagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\queries\\listcontactmessagehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\interfaces\\icontactmessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\interfaces\\icontactmessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\userprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\userprofilerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\contactmessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\contactmessagerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\membershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\membershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\reviewrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\queries\\listprofilesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\queries\\listprofilesqueryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\queries\\listprofilesquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\queries\\listprofilesquery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\queries\\listcontactmessagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\queries\\listcontactmessagequery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\userprofiles\\dtos\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\userprofiles\\dtos\\userprofiledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\contact\\dtos\\contactmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\contact\\dtos\\contactmessagedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\application.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\thewayofcoherenceweb.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\thewayofcoherenceweb.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\membership\\commands\\signupmembershipcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\membership\\commands\\signupmembershipcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\membership\\membership.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\membership\\membership.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\contact\\contactmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\contact\\contactmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\membership\\interfaces\\isignupmembershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\membership\\interfaces\\isignupmembershiprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\payments\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\payments\\payment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\features\\membership\\commands\\signupmembershiphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\features\\membership\\commands\\signupmembershiphandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\users\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\payments\\enums\\paymentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\payments\\enums\\paymentstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\payments\\enums\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\payments\\enums\\paymentmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\contact\\enums\\contactstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\contact\\enums\\contactstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\mediaattachmentconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\mediaattachmentconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\contactmessageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\contactmessageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\cachedpostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\cachedpostrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\membershipconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\membershipconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\userprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\userprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\reviewconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\reviewconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\configurations\\postconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\configurations\\postconfigurations.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\abstractions\\contracts\\gateways\\iaichatgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\abstractions\\contracts\\gateways\\iaichatgateway.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\abstractions\\contracts\\gateways\\iemailnotifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\abstractions\\contracts\\gateways\\iemailnotifier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|d:\\source\\thewayofcoherence\\application\\abstractions\\contracts\\gateways\\icache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A188F992-B957-43EF-B15F-4A5E64FDAA12}|Application\\Application.csproj|solutionrelative:application\\abstractions\\contracts\\gateways\\icache.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\persistence\\repositories\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\persistence\\repositories\\postrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\reviews\\reviewvideo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\reviews\\reviewvideo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\reviews\\videoreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\reviews\\videoreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\content\\enums\\postcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\content\\enums\\postcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\content\\enums\\mediatype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\content\\enums\\mediatype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\content\\mediaattachment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\content\\mediaattachment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\content\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\content\\post.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\reviews\\textreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\reviews\\textreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\reviews\\enums\\reviewcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\reviews\\enums\\reviewcategory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\reviews\\reviewbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\reviews\\reviewbase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\_imports.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\shared\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|d:\\source\\thewayofcoherence\\infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{12FEF369-870B-49E5-A3AF-D6C647223329}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|d:\\source\\thewayofcoherence\\domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{042C71E8-A558-408D-8765-98F06780DD7B}|Domain\\Domain.csproj|solutionrelative:domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|d:\\source\\thewayofcoherence\\thewayofcoherence\\thewayofcoherenceweb.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{379CB68B-06EB-4D57-B227-7772DA13FF9C}|TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj|solutionrelative:thewayofcoherence\\thewayofcoherenceweb.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 11,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SubmitContactMessageCommand.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Commands\\SubmitContactMessageCommand.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Commands\\SubmitContactMessageCommand.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Commands\\SubmitContactMessageCommand.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Commands\\SubmitContactMessageCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:21:34.062Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SubmitContactMessageHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Commands\\SubmitContactMessageHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Commands\\SubmitContactMessageHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Commands\\SubmitContactMessageHandler.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Commands\\SubmitContactMessageHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:21:59.423Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "UserProfileSignupHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileSignupHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Commands\\UserProfileSignupHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileSignupHandler.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Commands\\UserProfileSignupHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAApwAgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T22:29:04.688Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AIChatGateway.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\AIChatGateway.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Gateways\\AIChatGateway.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\AIChatGateway.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Gateways\\AIChatGateway.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:56:16.034Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmailNotifier.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\EmailNotifier.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Gateways\\EmailNotifier.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\EmailNotifier.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Gateways\\EmailNotifier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:57:35.72Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StripePaymenthGateway.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\StripePaymenthGateway.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Gateways\\StripePaymenthGateway.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\StripePaymenthGateway.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Gateways\\StripePaymenthGateway.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T11:09:38.93Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BTCPaymentgGateway.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\BTCPaymentgGateway.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Gateways\\BTCPaymentgGateway.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\BTCPaymentgGateway.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Gateways\\BTCPaymentgGateway.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T10:42:44.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IUserProfileRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Interfaces\\IUserProfileRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Interfaces\\IUserProfileRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Interfaces\\IUserProfileRepository.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Interfaces\\IUserProfileRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T22:05:26.79Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "UserProfileUpdateHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateHandler.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:46:03.502Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RedisCache.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\RedisCache.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Gateways\\RedisCache.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Gateways\\RedisCache.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Gateways\\RedisCache.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T12:09:44.964Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ListContactMessageHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Queries\\ListContactMessageHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Queries\\ListContactMessageHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Queries\\ListContactMessageHandler.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Queries\\ListContactMessageHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:23:39.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserProfile.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\UserProfile\\UserProfile.cs",
+              "RelativeDocumentMoniker": "Domain\\UserProfile\\UserProfile.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\UserProfile\\UserProfile.cs",
+              "RelativeToolTip": "Domain\\UserProfile\\UserProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:39:43.759Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserProfileSignupCommand.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileSignupCommand.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Commands\\UserProfileSignupCommand.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileSignupCommand.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Commands\\UserProfileSignupCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T22:07:36.358Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserProfileUpdateCommand.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateCommand.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateCommand.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateCommand.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Commands\\UserProfileUpdateCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:45:42.626Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IContactMessageRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Interfaces\\IContactMessageRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Interfaces\\IContactMessageRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Interfaces\\IContactMessageRepository.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Interfaces\\IContactMessageRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:15:49.587Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UserProfileRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\UserProfileRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\UserProfileRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\UserProfileRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\UserProfileRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:52:35.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ContactMessageRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\ContactMessageRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\ContactMessageRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\ContactMessageRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\ContactMessageRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:53:07.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "MembershipRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\MembershipRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\MembershipRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\MembershipRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\MembershipRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:52:52.386Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ReviewRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\ReviewRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\ReviewRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\ReviewRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\ReviewRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:52:17.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ListProfilesQueryHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Queries\\ListProfilesQueryHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Queries\\ListProfilesQueryHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Queries\\ListProfilesQueryHandler.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Queries\\ListProfilesQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T23:00:46.194Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ListProfilesQuery.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Queries\\ListProfilesQuery.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Queries\\ListProfilesQuery.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Queries\\ListProfilesQuery.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Queries\\ListProfilesQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T22:49:32.739Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "ListContactMessageQuery.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Queries\\ListContactMessageQuery.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Queries\\ListContactMessageQuery.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Queries\\ListContactMessageQuery.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Queries\\ListContactMessageQuery.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:23:13.231Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UserProfileDto.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Dtos\\UserProfileDto.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\UserProfiles\\Dtos\\UserProfileDto.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\UserProfiles\\Dtos\\UserProfileDto.cs",
+              "RelativeToolTip": "Application\\Features\\UserProfiles\\Dtos\\UserProfileDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T22:52:23.325Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "ContactMessageDto.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Dtos\\ContactMessageDto.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Contact\\Dtos\\ContactMessageDto.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Contact\\Dtos\\ContactMessageDto.cs",
+              "RelativeToolTip": "Application\\Features\\Contact\\Dtos\\ContactMessageDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T12:24:28.063Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "Application.csproj",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Application.csproj",
+              "RelativeDocumentMoniker": "Application\\Application.csproj",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Application.csproj",
+              "RelativeToolTip": "Application\\Application.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-04T11:25:57.141Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Program.cs",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\Program.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Program.cs",
+              "RelativeToolTip": "TheWayOfCoherence\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-03T12:10:34.871Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\appsettings.json",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\appsettings.json",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\appsettings.json",
+              "RelativeToolTip": "TheWayOfCoherence\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-21T22:24:17.71Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "TheWayOfCoherenceWeb",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "RelativeToolTip": "TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-21T22:24:05.688Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SignupMembershipCommand.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Commands\\SignupMembershipCommand.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Membership\\Commands\\SignupMembershipCommand.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Commands\\SignupMembershipCommand.cs",
+              "RelativeToolTip": "Application\\Features\\Membership\\Commands\\SignupMembershipCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:17:34.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Membership.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Membership\\Membership.cs",
+              "RelativeDocumentMoniker": "Domain\\Membership\\Membership.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Membership\\Membership.cs",
+              "RelativeToolTip": "Domain\\Membership\\Membership.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:39:54.345Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\Properties\\launchSettings.json",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Properties\\launchSettings.json",
+              "RelativeToolTip": "TheWayOfCoherence\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-10-03T12:10:43.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "ContactMessage.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Contact\\ContactMessage.cs",
+              "RelativeDocumentMoniker": "Domain\\Contact\\ContactMessage.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Contact\\ContactMessage.cs",
+              "RelativeToolTip": "Domain\\Contact\\ContactMessage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T10:41:37.105Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "ISignupMembershipRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Interfaces\\ISignupMembershipRepository.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Membership\\Interfaces\\ISignupMembershipRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Interfaces\\ISignupMembershipRepository.cs",
+              "RelativeToolTip": "Application\\Features\\Membership\\Interfaces\\ISignupMembershipRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:33:01.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Payment.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Payment.cs",
+              "RelativeDocumentMoniker": "Domain\\Payments\\Payment.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Payment.cs",
+              "RelativeToolTip": "Domain\\Payments\\Payment.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T10:40:28.488Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "SignupMembershipHandler.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Commands\\SignupMembershipHandler.cs",
+              "RelativeDocumentMoniker": "Application\\Features\\Membership\\Commands\\SignupMembershipHandler.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Features\\Membership\\Commands\\SignupMembershipHandler.cs",
+              "RelativeToolTip": "Application\\Features\\Membership\\Commands\\SignupMembershipHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-20T14:17:54.084Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Users\\User.cs",
+              "RelativeDocumentMoniker": "Domain\\Users\\User.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Users\\User.cs",
+              "RelativeToolTip": "Domain\\Users\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T10:29:38.267Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "PaymentStatus.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Enums\\PaymentStatus.cs",
+              "RelativeDocumentMoniker": "Domain\\Payments\\Enums\\PaymentStatus.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Enums\\PaymentStatus.cs",
+              "RelativeToolTip": "Domain\\Payments\\Enums\\PaymentStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T10:40:48.443Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "PaymentMethod.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Enums\\PaymentMethod.cs",
+              "RelativeDocumentMoniker": "Domain\\Payments\\Enums\\PaymentMethod.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Payments\\Enums\\PaymentMethod.cs",
+              "RelativeToolTip": "Domain\\Payments\\Enums\\PaymentMethod.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-21T10:41:03.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "ContactStatus.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Contact\\Enums\\ContactStatus.cs",
+              "RelativeDocumentMoniker": "Domain\\Contact\\Enums\\ContactStatus.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Contact\\Enums\\ContactStatus.cs",
+              "RelativeToolTip": "Domain\\Contact\\Enums\\ContactStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T10:50:39.15Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "MediaAttachmentConfiguration.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\MediaAttachmentConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\MediaAttachmentConfiguration.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\MediaAttachmentConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\MediaAttachmentConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:50:50.599Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "ContactMessageConfiguration.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\ContactMessageConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:52:15.489Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "CachedPostRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\CachedPostRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\CachedPostRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\CachedPostRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\CachedPostRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T12:12:29.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\AppDbContext.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\AppDbContext.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:51:05.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "MembershipConfiguration.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\MembershipConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\MembershipConfiguration.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\MembershipConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\MembershipConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:51:56.108Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "UserProfileConfiguration.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\UserProfileConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\UserProfileConfiguration.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\UserProfileConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\UserProfileConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:51:33.13Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "ReviewConfiguration.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\ReviewConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\ReviewConfiguration.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\ReviewConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\ReviewConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:51:10.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "PostConfigurations.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\PostConfigurations.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Configurations\\PostConfigurations.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Configurations\\PostConfigurations.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Configurations\\PostConfigurations.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T20:50:24.667Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "IAIChatGateway.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\IAIChatGateway.cs",
+              "RelativeDocumentMoniker": "Application\\Abstractions\\Contracts\\Gateways\\IAIChatGateway.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\IAIChatGateway.cs",
+              "RelativeToolTip": "Application\\Abstractions\\Contracts\\Gateways\\IAIChatGateway.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T12:08:42.754Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "IEmailNotifier.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\IEmailNotifier.cs",
+              "RelativeDocumentMoniker": "Application\\Abstractions\\Contracts\\Gateways\\IEmailNotifier.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\IEmailNotifier.cs",
+              "RelativeToolTip": "Application\\Abstractions\\Contracts\\Gateways\\IEmailNotifier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T12:08:35.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "ICache.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\ICache.cs",
+              "RelativeDocumentMoniker": "Application\\Abstractions\\Contracts\\Gateways\\ICache.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Application\\Abstractions\\Contracts\\Gateways\\ICache.cs",
+              "RelativeToolTip": "Application\\Abstractions\\Contracts\\Gateways\\ICache.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T12:08:17.427Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "PostRepository.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\PostRepository.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Persistence\\Repositories\\PostRepository.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Persistence\\Repositories\\PostRepository.cs",
+              "RelativeToolTip": "Infrastructure\\Persistence\\Repositories\\PostRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T11:51:57.784Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "ReviewVideo.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\ReviewVideo.cs",
+              "RelativeDocumentMoniker": "Domain\\Reviews\\ReviewVideo.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\ReviewVideo.cs",
+              "RelativeToolTip": "Domain\\Reviews\\ReviewVideo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T10:39:14.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "VideoReview.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\VideoReview.cs",
+              "RelativeDocumentMoniker": "Domain\\Reviews\\VideoReview.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\VideoReview.cs",
+              "RelativeToolTip": "Domain\\Reviews\\VideoReview.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T10:38:57.074Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "PostCategory.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Enums\\PostCategory.cs",
+              "RelativeDocumentMoniker": "Domain\\Content\\Enums\\PostCategory.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Enums\\PostCategory.cs",
+              "RelativeToolTip": "Domain\\Content\\Enums\\PostCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-06T10:31:17.258Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 54,
+              "Title": "MediaType.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Enums\\MediaType.cs",
+              "RelativeDocumentMoniker": "Domain\\Content\\Enums\\MediaType.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Enums\\MediaType.cs",
+              "RelativeToolTip": "Domain\\Content\\Enums\\MediaType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:44:14.928Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 55,
+              "Title": "MediaAttachment.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\MediaAttachment.cs",
+              "RelativeDocumentMoniker": "Domain\\Content\\MediaAttachment.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\MediaAttachment.cs",
+              "RelativeToolTip": "Domain\\Content\\MediaAttachment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:43:38.849Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 56,
+              "Title": "Post.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Post.cs",
+              "RelativeDocumentMoniker": "Domain\\Content\\Post.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Content\\Post.cs",
+              "RelativeToolTip": "Domain\\Content\\Post.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:43:20.101Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 57,
+              "Title": "TextReview.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\TextReview.cs",
+              "RelativeDocumentMoniker": "Domain\\Reviews\\TextReview.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\TextReview.cs",
+              "RelativeToolTip": "Domain\\Reviews\\TextReview.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:41:11.412Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 58,
+              "Title": "ReviewCategory.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\Enums\\ReviewCategory.cs",
+              "RelativeDocumentMoniker": "Domain\\Reviews\\Enums\\ReviewCategory.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\Enums\\ReviewCategory.cs",
+              "RelativeToolTip": "Domain\\Reviews\\Enums\\ReviewCategory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:40:41.099Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 59,
+              "Title": "ReviewBase.cs",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\ReviewBase.cs",
+              "RelativeDocumentMoniker": "Domain\\Reviews\\ReviewBase.cs",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Reviews\\ReviewBase.cs",
+              "RelativeToolTip": "Domain\\Reviews\\ReviewBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-04T17:40:19.735Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 61,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Shared\\MainLayout.razor",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\Shared\\MainLayout.razor",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\Shared\\MainLayout.razor",
+              "RelativeToolTip": "TheWayOfCoherence\\Shared\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-04T16:42:22.916Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 63,
+              "Title": "Infrastructure.csproj",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Infrastructure.csproj",
+              "RelativeDocumentMoniker": "Infrastructure\\Infrastructure.csproj",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Infrastructure\\Infrastructure.csproj",
+              "RelativeToolTip": "Infrastructure\\Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-04T11:26:56.828Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 64,
+              "Title": "Domain.csproj",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\Domain\\Domain.csproj",
+              "RelativeDocumentMoniker": "Domain\\Domain.csproj",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\Domain\\Domain.csproj",
+              "RelativeToolTip": "Domain\\Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-04T11:24:03.891Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 62,
+              "Title": "App.razor",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\App.razor",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\App.razor",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\App.razor",
+              "RelativeToolTip": "TheWayOfCoherence\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-03T12:11:18.662Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 60,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\_Imports.razor",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\_Imports.razor",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\_Imports.razor",
+              "RelativeToolTip": "TheWayOfCoherence\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-03T12:11:16.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 65,
+              "Title": "TheWayOfCoherenceWeb.csproj",
+              "DocumentMoniker": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "RelativeDocumentMoniker": "TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "ToolTip": "D:\\source\\TheWayOfCoherence\\TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "RelativeToolTip": "TheWayOfCoherence\\TheWayOfCoherenceWeb.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-10-03T12:10:45.765Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

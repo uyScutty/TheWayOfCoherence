@@ -1,0 +1,6 @@
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.csproj.AssemblyReference.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.GeneratedMSBuildEditorConfig.editorconfig
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.AssemblyInfoInputs.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.AssemblyInfo.cs
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.csproj.CoreCompileInputs.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.MvcApplicationPartsAssemblyInfo.cache
