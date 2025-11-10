@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence.Gateways
+namespace Domain.Shared
 {
-    internal class StripePaymenthGateway
+    public interface IDomainEventDispatcher
     {
+        Task DispatchAsync(IDomainEvent domainEvent);
     }
+
 }
