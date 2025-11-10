@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Posts.Contracts;
+using Domain.Shared;
+
 namespace Application.Features.Posts.Commands
+
 {
     /// <summary>
     /// Use-case for at udgive et Post.

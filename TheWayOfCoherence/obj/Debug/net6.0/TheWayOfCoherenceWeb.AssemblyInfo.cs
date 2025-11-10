@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TheWayOfCoherenceWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c244e4e4b32b740759fcaa5965ca3b079befc3da")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+218377ebc26273a303ab939dc78eb816b0dec152")]
 [assembly: System.Reflection.AssemblyProductAttribute("TheWayOfCoherenceWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TheWayOfCoherenceWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
