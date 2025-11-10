@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Content;
+using Domain.Content.Entities;
 
 namespace Application.Features.Posts.Contracts
 {
     public interface IPostRepository
     {
-        Task<Post?> GetByIdAsync(Guid id);
-        Task UpdateAsync(Post post);
+        Task<BasePost?> GetByIdAsync(Guid id);
+        Task UpdateAsync(BasePost post);
     }
 }

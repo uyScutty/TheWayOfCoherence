@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Abstractions.Contracts.Gateways;
+using Application.Features.Membership.Interfaces;
 using Domain.Content.Events;
 
 namespace Application.Features.Membership.Commands

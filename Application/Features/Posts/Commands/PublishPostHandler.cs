@@ -34,8 +34,12 @@ namespace Application.Features.Posts.Commands
             if (post == null)
                 throw new InvalidOperationException("Post not found.");
 
-            // 2️⃣ Udgiv posten (rejser et Domain Event internt)
-            post.Publish();
+            // 2️⃣ Vi antager at BasePost (eller dens subklasse) har metoden Publish()
+            // Hvis Publish er defineret i BasePost eller kun i BlogPost, kan vi caste
+            if (post is IPublishable publishablePost)
+                publishablePost.Publish();
+            else
+                throw new InvalidOperationException("Post type cannot be published.");
 
             // 3️⃣ Gem ændringen i databasen
             await _postRepository.UpdateAsync(post);
@@ -48,5 +52,6 @@ namespace Application.Features.Posts.Commands
             post.ClearDomainEvents();
         }
     }
-}
+    }
+
 

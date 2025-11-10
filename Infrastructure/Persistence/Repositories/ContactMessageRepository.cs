@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Contact;
+using Application.Features.Contact.Interfaces;
 using Domain.Contact;
-using Application.Features.Contact.Contracts;
+using Domain.Contact.Enums;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -23,7 +24,7 @@ namespace Infrastructure.Persistence.Repositories
             await _db.ContactMessages.AddAsync(message, ct);
         }
 
-        public async Task<IEnumerable<ContactMessage>> ListAsync(CancellationToken ct)
+        public async Task<IEnumerable<ContactMessage>> ListAsync(ContactStatus status, CancellationToken ct)
         {
             // Simpel liste af beskeder sorteret efter seneste
             return await _db.ContactMessages
@@ -34,6 +35,11 @@ namespace Infrastructure.Persistence.Repositories
         public async Task SaveChangesAsync(CancellationToken ct)
         {
             await _db.SaveChangesAsync(ct);
+        }
+
+
+        public async Task<ContactMessage> ListAsync(CancellationToken ct)
+        {             return await _db.ContactMessages.FirstOrDefaultAsync(ct);
         }
     }
 }

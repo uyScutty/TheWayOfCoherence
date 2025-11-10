@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Content.Events;
 
-namespace Domain.Content
+namespace Domain.Content.Entities
 {
     /// <summary>
     /// Repræsenterer et indlæg (blog / health tip) i systemet.

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Content.Enums
+namespace Domain.Content.Entities
 {
-    internal enum MediaType
+    internal class MediaAttachment
     {
     }
 }

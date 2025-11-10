@@ -7,6 +7,7 @@ using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
 using MediatR;
 using Domain.Contact;
+using Application.Features.Membership.Interfaces;
 
 namespace Application.Features.Contact.Commands
 {

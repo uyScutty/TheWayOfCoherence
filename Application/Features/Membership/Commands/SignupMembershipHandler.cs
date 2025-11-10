@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Abstractions.Contracts.Gateways;
-using Application.Features.Contact.Contracts;
+using Application.Features.Contact.Interfaces;
+using Application.Features.Membership.Interfaces;
 using MediatR;
 
 namespace Application.Features.Membership.Commands
@@ -12,15 +13,19 @@ namespace Application.Features.Membership.Commands
     public class SignupMembershipHandler : IRequestHandler<SignupMembershipCommand>
     {
         
-        private readonly ISignupRepository _repo;
+        private readonly ISignupMembershipRepository _repo;
        
 
         public SignupMembershipHandler(
-            IContactMessageRepository repo,
-         )
+            IContactMessageRepository repo)
         {
             _repo = repo;
             
+        }
+
+        public Task Handle(SignupMembershipCommand request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

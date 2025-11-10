@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Membership.Interfaces;
 
-internal interface ISignupMembershipRepository
+public interface ISignupMembershipRepository
 {
-    Task SaveMemberAsync(FullName string, )
+    Task SaveMemberAsync(string fullName);
 }

@@ -4,26 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Posts.Contracts;
-using Domain.Content;
+using Domain.Content.Entities;
 
 namespace Infrastructure.Persistence.Repositories
 {
     public class PostRepository : IPostRepository
     {
-        private readonly AppDbContext _db;
+        private readonly AppDbContext _context;
 
-        public PostRepository(AppDbContext db)
+        public PostRepository(AppDbContext context)
         {
-            _db = db;
+            _context = context;
         }
 
-        public async Task<Post?> GetByIdAsync(Guid id)
-            => await _db.Posts.FindAsync(id);
-
-        public async Task UpdateAsync(Post post)
+        public async Task<BasePost?> GetByIdAsync(Guid id)
         {
-            _db.Posts.Update(post);
-            await _db.SaveChangesAsync();
+            var entity = await _context.Posts.FindAsync(id);
+            return entity;
+        }
+
+        public async Task UpdateAsync(BasePost post)
+        {
+            _context.Posts.Update(post);
+            await _context.SaveChangesAsync();
         }
     }
 }
+
