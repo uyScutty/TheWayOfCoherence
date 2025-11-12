@@ -10,22 +10,24 @@ namespace Domain.Content.Entities
 {
     public class BlogPost : BasePost, IPublishable
     {
-        public string Body { get; private set; }
+       
         public string? ImageUrl { get; private set; }
 
         private readonly List<object> _domainEvents = new(); // Fixed syntax error: removed extra '>'.
 
         public IReadOnlyCollection<object> DomainEvents => _domainEvents.AsReadOnly();
 
-        public BlogPost(string title, string authorId, string body, string? imageUrl = null)
-            : base(title, authorId)
+        private BlogPost() { }
+
+        public BlogPost(Guid authorId, string title, string body, string? imageUrl = null)
+            : base(authorId, title, body)  // 👈 først kald til base
         {
-            Body = body;
-            ImageUrl = imageUrl;
+            ImageUrl = imageUrl;           // 👈 derefter egne felter
         }
 
-        public override string GetSummary() =>
-           Body.Length > 120 ? Body[..120] + "..." : Body;
+        public override string GetSummary()
+            => $"{Title} ({CreatedAt:dd/MM/yyyy})";
+    
 
         public void Publish()
         {

@@ -17,13 +17,13 @@ namespace Infrastructure.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<BasePost?> GetByIdAsync(Guid id)
+        public async Task<Post?> GetByIdAsync(Guid id)
         {
             var entity = await _context.Posts.FindAsync(id);
             return entity;
         }
 
-        public async Task UpdateAsync(BasePost post)
+        public async Task UpdateAsync(Post post)
         {
             _context.Posts.Update(post);
             await _context.SaveChangesAsync();

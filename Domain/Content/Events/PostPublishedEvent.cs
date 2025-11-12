@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Shared;
 
 namespace Domain.Content.Events
 {
@@ -10,6 +11,7 @@ namespace Domain.Content.Events
     {
         public Guid PostId { get; }
         public string Title { get; }
+        public DateTime OccurredOn { get; } = DateTime.UtcNow;
 
         public PostPublishedEvent(Guid postId, string title)
         {
@@ -17,8 +19,4 @@ namespace Domain.Content.Events
             Title = title;
         }
     }
-
-    // Simpelt markeringsinterface til events
-    public interface IDomainEvent { }
-
 }

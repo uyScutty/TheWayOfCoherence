@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Membership.Interfaces;
 
 namespace Infrastructure.Persistence.Gateways

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Application.Features.Contact.Interfaces;
 using Application.Features.Contact.Dtos;
+using Application.Features.Contact.Interfaces;
+using Domain.Contact;
 using MediatR;
 
 namespace Application.Features.Contact.Queries
 {
     public class ListContactMessagesHandler
-    : IRequestHandler<ListContactMessagesQuery, IEnumerable<ContactMessageDto>>
+          : IRequestHandler<ListContactMessagesQuery, IEnumerable<ContactMessageDto>>
     {
         private readonly IContactMessageRepository _repo;
 
@@ -21,8 +22,11 @@ namespace Application.Features.Contact.Queries
             ListContactMessagesQuery query,
             CancellationToken ct)
         {
+            // 1️⃣ Hent alle beskeder fra repository
             var messages = await _repo.ListAsync(ct);
-            return messages.Select(m => new ContactMessageDto(
+
+            // 2️⃣ Mapper hver domain-entity til en DTO
+            var dtos = messages.Select(m => new ContactMessageDto(
                 m.Id,
                 m.Name,
                 m.Email,
@@ -30,7 +34,14 @@ namespace Application.Features.Contact.Queries
                 m.Message,
                 m.CreatedAt
             ));
+
+            // 3️⃣ Returnér DTO-liste
+            return dtos;
         }
     }
-
 }
+
+
+
+
+

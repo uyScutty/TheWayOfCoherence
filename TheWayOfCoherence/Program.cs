@@ -1,74 +1,71 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
-using Microsoft.EntityFrameworkCore;
-using Application;
+﻿using Application;
+using Infrastructure;
 using Infrastructure.Persistence;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
-builder.Services.AddControllersWithViews()
-    .AddMicrosoftIdentityUI();
+// ------------------------------------------------------
+// 1️⃣ Core framework services
+// ------------------------------------------------------
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddControllersWithViews();
 
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(SubmitContactMessageCommand).Assembly));
-
-builder.Services.AddAuthorization(options =>
-{
-    // By default, all incoming requests will be authorized according to the default policy
-    options.FallbackPolicy = options.DefaultPolicy;
-});
-
-public static class ServiceCollectionExtensions
-{
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
-    {
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-
-        services.AddScoped<IContactMessageRepository, ContactMessageRepository>();
-        services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
-
-        return services;
-    }
-}
-
-
+// ------------------------------------------------------
+// 2️⃣ Application & Infrastructure layers
+// ------------------------------------------------------
+builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor()
-    .AddMicrosoftIdentityConsentHandler();
+// ------------------------------------------------------
+// 3️⃣ Authentication & Authorization (custom login)
+// ------------------------------------------------------
+// Hvis du senere tilføjer Identity:
+// builder.Services.AddDefaultIdentity<ApplicationUser>()
+//     .AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = "Cookies";
+    options.DefaultSignInScheme = "Cookies";
+    options.DefaultChallengeScheme = "Cookies";
+}).AddCookie("Cookies", options =>
+{
+    options.LoginPath = "/login";
+    options.AccessDeniedPath = "/access-denied";
+});
 
+builder.Services.AddAuthorization();
+
+// ------------------------------------------------------
+// 4️⃣ Build the app
+// ------------------------------------------------------
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ------------------------------------------------------
+// 5️⃣ Middleware pipeline
+// ------------------------------------------------------
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

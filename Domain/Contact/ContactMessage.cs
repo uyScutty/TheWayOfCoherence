@@ -26,5 +26,7 @@ namespace Domain.Contact
         }
 
         public void MarkHandled() => Status = ContactStatus.Handled;
+
+      
     }
 }

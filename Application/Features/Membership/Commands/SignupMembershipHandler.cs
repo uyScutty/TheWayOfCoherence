@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
 using Application.Features.Membership.Interfaces;
+
 using MediatR;
 
 namespace Application.Features.Membership.Commands
@@ -19,7 +20,7 @@ namespace Application.Features.Membership.Commands
         public SignupMembershipHandler(
             IContactMessageRepository repo)
         {
-            _repo = repo;
+            _repo = (ISignupMembershipRepository?)repo;
             
         }
 

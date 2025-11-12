@@ -9,16 +9,11 @@ namespace Application.Features.UserProfiles.Interfaces
 {
     public interface IUserProfileRepository
     {
-        Task<UserProfile> GetByIdAsync(UserProfile userId, CancellationToken ct);
-
+        Task<UserProfile?> GetByIdAsync(Guid userId, CancellationToken ct);
+        Task<IEnumerable<UserProfile>> ListAsync(CancellationToken ct);
         Task AddAsync(UserProfile profile, CancellationToken ct);
-
+        Task UpdateAsync(UserProfile profile, CancellationToken ct);
         Task SaveChangesAsync(CancellationToken ct);
-
-        Task DeleteChangesAsync(UserProfile profile, CancellationToken ct);
-
-        Task<UserProfile> ListAsync(CancellationToken ct);
-
-        Task UpdateChangesAsync(UserProfile profile, CancellationToken ct);
     }
 }
+

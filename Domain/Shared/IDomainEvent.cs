@@ -11,6 +11,8 @@ namespace Domain.Shared
     /// Markeringsinterface for domænehændelser.
     /// Bruges til at identificere klasser som events i domænet.
     /// </summary>
-    public interface IDomainEvent { }
+    public interface IDomainEvent {
+        DateTime OccurredOn { get; }
+    }
 }
 

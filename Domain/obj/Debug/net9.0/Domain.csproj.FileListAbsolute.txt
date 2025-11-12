@@ -1,0 +1,13 @@
+D:\source\TheWayOfCoherence\Domain\bin\Debug\net9.0\Domain.deps.json
+D:\source\TheWayOfCoherence\Domain\bin\Debug\net9.0\Domain.dll
+D:\source\TheWayOfCoherence\Domain\bin\Debug\net9.0\Domain.pdb
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.csproj.AssemblyReference.cache
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.AssemblyInfoInputs.cache
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.AssemblyInfo.cs
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.csproj.CoreCompileInputs.cache
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.sourcelink.json
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.dll
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\refint\Domain.dll
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\Domain.pdb
+D:\source\TheWayOfCoherence\Domain\obj\Debug\net9.0\ref\Domain.dll

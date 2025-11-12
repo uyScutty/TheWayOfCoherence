@@ -3,4 +3,8 @@ D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherence
 D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.AssemblyInfoInputs.cache
 D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.AssemblyInfo.cs
 D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.csproj.CoreCompileInputs.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.MvcApplicationPartsAssemblyInfo.cs
 D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.MvcApplicationPartsAssemblyInfo.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.RazorAssemblyInfo.cache
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.RazorAssemblyInfo.cs
+D:\source\TheWayOfCoherence\TheWayOfCoherence\obj\Debug\net6.0\TheWayOfCoherenceWeb.sourcelink.json

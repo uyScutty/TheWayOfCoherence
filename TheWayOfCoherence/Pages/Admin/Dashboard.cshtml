@@ -1,0 +1,248 @@
+@page "/admin/dashboard"
+@model AdminDashboardModel
+@{
+    Layout = null; // Standalone page to look exactly like the static HTML
+}
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - The Way of Coherence</title>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">🌟 Admin Panel</div>
+                <div class="sidebar-subtitle">The Way of Coherence</div>
+            </div>
+            <nav class="sidebar-menu">
+                <a class="menu-item active" onclick="showSection('overview')"><span class="menu-icon">📊</span><span>Oversigt</span></a>
+                <a class="menu-item" onclick="showSection('posts')"><span class="menu-icon">📝</span><span>Blog Posts</span></a>
+                <a class="menu-item" onclick="showSection('members')"><span class="menu-icon">👥</span><span>Medlemmer</span></a>
+                <a class="menu-item" onclick="showSection('ai-bots')"><span class="menu-icon">🤖</span><span>AI Bots</span></a>
+                <a class="menu-item" onclick="showSection('analytics')"><span class="menu-icon">📈</span><span>Analytics</span></a>
+                <a class="menu-item" onclick="showSection('settings')"><span class="menu-icon">⚙️</span><span>Indstillinger</span></a>
+                <a asp-page="/Index" class="menu-item"><span class="menu-icon">🌐</span><span>Se Website</span></a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1>Dashboard</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="showModal('new-post')"><span>➕</span><span>Ny Post</span></button>
+                    <button class="btn btn-secondary"><span>👤</span><span>Admin</span></button>
+                </div>
+            </header>
+
+            <div id="overview-section">
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-info"><h3>Total Medlemmer</h3><div class="stat-value">247</div></div><div class="stat-icon">👥</div></div>
+                    <div class="stat-card"><div class="stat-info"><h3>Blog Posts</h3><div class="stat-value">52</div></div><div class="stat-icon">📝</div></div>
+                    <div class="stat-card"><div class="stat-info"><h3>Månedlige Besøgende</h3><div class="stat-value">3.2K</div></div><div class="stat-icon">📊</div></div>
+                    <div class="stat-card"><div class="stat-info"><h3>AI Bot Interaktioner</h3><div class="stat-value">1.5K</div></div><div class="stat-icon">🤖</div></div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header"><h2 class="section-title">Hurtige Handlinger</h2></div>
+                    <div class="quick-actions">
+                        <div class="action-card" onclick="showModal('new-post')"><div class="action-icon">✍️</div><div>Skriv Ny Post</div></div>
+                        <div class="action-card" onclick="showSection('members')"><div class="action-icon">📧</div><div>Send Nyhedsbrev</div></div>
+                        <div class="action-card" onclick="showSection('ai-bots')"><div class="action-icon">🤖</div><div>Konfigurer AI Bots</div></div>
+                        <div class="action-card" onclick="showSection('analytics')"><div class="action-icon">📈</div><div>Se Analytics</div></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-section">
+                    <div class="section-header"><h2 class="section-title">Seneste Posts</h2><button class="btn btn-primary" onclick="showSection('posts')">Se Alle</button></div>
+                    <table class="data-table">
+                        <thead><tr><th>Titel</th><th>Kategori</th><th>Dato</th><th>Status</th><th>Handlinger</th></tr></thead>
+                        <tbody>
+                            <tr><td>Skærm: Børn med åben mund og lukkede ører</td><td>Teknologi & Sundhed</td><td>2025-11-10</td><td><span class="status-badge status-published">Udgivet</span></td><td><button class="btn btn-warning" style="padding: 0.25rem 0.5rem;">✏️</button><button class="btn btn-danger" style="padding: 0.25rem 0.5rem;">🗑️</button></td></tr>
+                            <tr><td>Hvad jeg ville gøre med kræft</td><td>Sundhed</td><td>2025-11-08</td><td><span class="status-badge status-published">Udgivet</span></td><td><button class="btn btn-warning" style="padding: 0.25rem 0.5rem;">✏️</button><button class="btn btn-danger" style="padding: 0.25rem 0.5rem;">🗑️</button></td></tr>
+                            <tr><td>Bitcoin & Pengerevolutionen</td><td>Økonomi</td><td>2025-11-05</td><td><span class="status-badge status-draft">Kladde</span></td><td><button class="btn btn-warning" style="padding: 0.25rem 0.5rem;">✏️</button><button class="btn btn-danger" style="padding: 0.25rem 0.5rem;">🗑️</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="posts-section" style="display:none;">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Alle Blog Posts</h2>
+                        <button class="btn btn-primary" onclick="showModal('new-post')"><span>➕</span><span>Ny Post</span></button>
+                    </div>
+                    <div class="form-group"><input type="text" class="form-control" placeholder="Søg efter posts..." onkeyup="searchPosts(this.value)"></div>
+                    <table class="data-table">
+                        <thead><tr><th>Titel</th><th>Kategori</th><th>Forfatter</th><th>Dato</th><th>Visninger</th><th>Status</th><th>Handlinger</th></tr></thead>
+                        <tbody id="posts-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="members-section" style="display:none;">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Medlemmer</h2>
+                        <button class="btn btn-success"><span>📧</span><span>Send Nyhedsbrev</span></button>
+                    </div>
+                    <table class="data-table">
+                        <thead><tr><th>Navn</th><th>Email</th><th>Tilmeldt</th><th>Status</th><th>Handlinger</th></tr></thead>
+                        <tbody>
+                            <tr><td>Anders Nielsen</td><td>anders@example.com</td><td>2025-10-15</td><td><span class="status-badge status-published">Aktiv</span></td><td><button class="btn btn-secondary" style="padding:0.25rem 0.5rem;">📧</button><button class="btn btn-warning" style="padding:0.25rem 0.5rem;">✏️</button></td></tr>
+                            <tr><td>Maria Hansen</td><td>maria@example.com</td><td>2025-09-20</td><td><span class="status-badge status-published">Aktiv</span></td><td><button class="btn btn-secondary" style="padding:0.25rem 0.5rem;">📧</button><button class="btn btn-warning" style="padding:0.25rem 0.5rem;">✏️</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="ai-bots-section" style="display:none;">
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2 class="section-title">AI Bot Konfiguration</h2>
+                        <button class="btn btn-primary" onclick="showModal('bot-config')"><span>⚙️</span><span>Konfigurer</span></button>
+                    </div>
+                    <div class="bot-config-grid">
+                        <div class="bot-card">
+                            <div class="bot-header"><div class="bot-name">🤖 Vejlednings Bot</div><div class="bot-status"><span class="status-indicator status-active"></span><span>Aktiv</span></div></div>
+                            <p>Hjælper besøgende med at navigere siden og finde relevant information.</p>
+                            <div style="margin-top:1rem;"><button class="btn btn-primary">Konfigurer</button><button class="btn btn-secondary">Test</button></div>
+                        </div>
+                        <div class="bot-card">
+                            <div class="bot-header"><div class="bot-name">👥 Medlems Assistent</div><div class="bot-status"><span class="status-indicator status-inactive"></span><span>Inaktiv</span></div></div>
+                            <p>Giver personaliseret vejledning og support til medlemmer.</p>
+                            <div style="margin-top:1rem;"><button class="btn btn-primary">Konfigurer</button><button class="btn btn-secondary">Test</button></div>
+                        </div>
+                        <div class="bot-card">
+                            <div class="bot-header"><div class="bot-name">🔧 Admin Bot</div><div class="bot-status"><span class="status-indicator status-active"></span><span>Aktiv</span></div></div>
+                            <p>Assisterer med administrationsopgaver og dataanalyse.</p>
+                            <div style="margin-top:1rem;"><button class="btn btn-primary">Konfigurer</button><button class="btn btn-secondary">Test</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="new-post-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Opret Ny Blog Post</h2>
+                <button class="close-btn" onclick="closeModal('new-post')">&times;</button>
+            </div>
+            <form id="new-post-form" method="post">
+                <div class="form-group">
+                    <label class="form-label">Titel</label>
+                    <input asp-for="NewPost.Title" class="form-control" placeholder="Indtast post titel..." required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kategori</label>
+                    <select asp-for="NewPost.Category" class="form-control">
+                        <option>Sundhedsvidenskab</option>
+                        <option>Spiritualitet</option>
+                        <option>Økonomi</option>
+                        <option>Teknologi & Sundhed</option>
+                        <option>Konspirationsfakta</option>
+                        <option>Boganmeldelser</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Resume</label>
+                    <textarea asp-for="NewPost.Summary" class="form-control" rows="3" placeholder="Kort beskrivelse af posten..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Indhold</label>
+                    <textarea asp-for="NewPost.Content" class="form-control" rows="10" placeholder="Skriv dit indhold her..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select asp-for="NewPost.Status" class="form-control">
+                        <option>Kladde</option>
+                        <option>Udgivet</option>
+                        <option>Planlagt</option>
+                    </select>
+                </div>
+                <div style="display:flex; gap:1rem; justify-content:flex-end;">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('new-post')">Annuller</button>
+                    <button type="submit" class="btn btn-primary">Gem Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="bot-config-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">AI Bot Konfiguration</h2>
+                <button class="close-btn" onclick="closeModal('bot-config')">&times;</button>
+            </div>
+            <form>
+                <div class="form-group"><label class="form-label">Bot Navn</label><input type="text" class="form-control" placeholder="Bot navn..."></div>
+                <div class="form-group"><label class="form-label">API Nøgle</label><input type="password" class="form-control" placeholder="Indtast API nøgle..."></div>
+                <div class="form-group"><label class="form-label">System Prompt</label><textarea class="form-control" rows="6" placeholder="Definer bot's personlighed og opgaver..."></textarea></div>
+                <div class="form-group"><label class="form-label">Temperatur (0-1)</label><input type="number" class="form-control" min="0" max="1" step="0.1" value="0.7"></div>
+                <div class="form-group"><label class="form-label">Max Tokens</label><input type="number" class="form-control" value="2000"></div>
+                <div class="form-group"><label class="form-control"><input type="checkbox" checked> Aktiv</label></div>
+                <div style="display:flex; gap:1rem; justify-content:flex-end;"><button type="button" class="btn btn-secondary" onclick="closeModal('bot-config')">Annuller</button><button type="submit" class="btn btn-primary">Gem Konfiguration</button></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            document.getElementById('overview-section').style.display = 'none';
+            document.getElementById('posts-section').style.display = 'none';
+            document.getElementById('members-section').style.display = 'none';
+            document.getElementById('ai-bots-section').style.display = 'none';
+            if (sectionName === 'overview') document.getElementById('overview-section').style.display = 'block';
+            else if (sectionName === 'posts') { document.getElementById('posts-section').style.display = 'block'; loadPosts(); }
+            else if (sectionName === 'members') document.getElementById('members-section').style.display = 'block';
+            else if (sectionName === 'ai-bots') document.getElementById('ai-bots-section').style.display = 'block';
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            event.target.closest('.menu-item').classList.add('active');
+        }
+        function showModal(type) {
+            if (type === 'new-post') document.getElementById('new-post-modal').classList.add('active');
+            else if (type === 'bot-config') document.getElementById('bot-config-modal').classList.add('active');
+        }
+        function closeModal(type) {
+            if (type === 'new-post') document.getElementById('new-post-modal').classList.remove('active');
+            else if (type === 'bot-config') document.getElementById('bot-config-modal').classList.remove('active');
+        }
+        function loadPosts() {
+            const posts = [
+                { title: 'Skærm: Børn med åben mund og lukkede ører', category: 'Teknologi & Sundhed', author: 'Admin', date: '2025-11-10', views: '342', status: 'published' },
+                { title: 'Hvad jeg ville gøre med kræft', category: 'Sundhed', author: 'Admin', date: '2025-11-08', views: '567', status: 'published' },
+                { title: 'Bitcoin & Pengerevolutionen', category: 'Økonomi', author: 'Admin', date: '2025-11-05', views: '128', status: 'draft' },
+                { title: 'Meditation og Hjernebølger', category: 'Spiritualitet', author: 'Admin', date: '2025-11-03', views: '891', status: 'published' },
+                { title: 'Circadisk Rytme og Søvn', category: 'Sundhedsvidenskab', author: 'Admin', date: '2025-10-28', views: '445', status: 'published' }
+            ];
+            const tbody = document.getElementById('posts-table-body');
+            tbody.innerHTML = '';
+            posts.forEach(p => {
+                tbody.innerHTML += `<tr>
+                    <td>${p.title}</td>
+                    <td>${p.category}</td>
+                    <td>${p.author}</td>
+                    <td>${p.date}</td>
+                    <td>${p.views}</td>
+                    <td><span class="status-badge ${p.status === 'published' ? 'status-published' : 'status-draft'}">${p.status === 'published' ? 'Udgivet' : 'Kladde'}</span></td>
+                    <td><button class="btn btn-warning" style="padding:0.25rem 0.5rem;">✏️</button><button class="btn btn-danger" style="padding:0.25rem 0.5rem;">🗑️</button></td>
+                </tr>`;
+            });
+        }
+        function searchPosts(q) {
+            const rows = document.querySelectorAll('#posts-table-body tr');
+            rows.forEach(r => r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none');
+        }
+        document.getElementById('new-post-form').addEventListener('submit', (e) => {
+            // Let the form post to the page (so OnPost runs); keep SPA feel by closing modal
+            alert('Post gemt! (Prototype — handler rammes på serveren)');
+            closeModal('new-post');
+        });
+        document.querySelectorAll('.modal').forEach(modal => modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); }));
+    </script>
+</body>
+</html>

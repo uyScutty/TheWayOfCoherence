@@ -1,0 +1,233 @@
+@page "/members"
+@using Microsoft.AspNetCore.Components.Authorization
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+@attribute [Authorize]
+@layout TheWayOfCoherenceWeb.Shared.MainLayout
+
+<PageTitle>Medlemsområde - The Way of Coherence</PageTitle>
+
+<div class="members-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">📚 Indholdstyper</h3>
+            <div class="content-filters">
+                @foreach (var type in ContentTypes)
+                {
+                    <button class="filter-btn @(CurrentFilter == type.Key ? "active" : "")"
+                            @onclick="@(() => FilterContent(type.Key))">
+                        <span>@type.Value</span>
+                        <span class="filter-count">@AllContent.Count(c => c.Type == type.Key)</span>
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">🏷️ Kategorier</h3>
+            <div class="content-filters">
+                @foreach (var category in Categories)
+                {
+                    <button class="filter-btn @(CurrentCategory == category.Key ? "active" : "")"
+                            @onclick="@(() => FilterByCategory(category.Key))">
+                        <span>@category.Value</span>
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="sidebar-card">
+            <h3 class="sidebar-title">📊 Din Aktivitet</h3>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                <div><small>Medlem siden</small><br /><b>@MemberSince.ToString("dd MMM yyyy")</b></div>
+                <div><small>Kurser</small><br /><b>@CompletedCourses af @TotalCourses</b></div>
+                <div><small>Artikler læst</small><br /><b>@ReadArticles</b></div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="welcome-section">
+            <h1>Velkommen, @UserName! 🌟</h1>
+            <p>Udforsk eksklusivt indhold og din læringsrejse.</p>
+            <div class="member-stats">
+                <div class="stat-item">
+                    <span class="stat-value">@DaysAsMember</span>
+                    <span class="stat-label">Dage som medlem</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">@ProgressPercentage%</span>
+                    <span class="stat-label">Kurser gennemført</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">@HoursWatched</span>
+                    <span class="stat-label">Timer set</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="progress-card">
+            <div class="progress-header">
+                <h3 class="progress-title">Din Læringsrejse</h3>
+                <span style="color:var(--primary-color);font-weight:600;">@ProgressPercentage% Gennemført</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width:@ProgressPercentage%"></div>
+            </div>
+        </div>
+
+        <h2 style="margin-bottom:1.5rem;color:var(--primary-color);">✨ Fremhævet Indhold</h2>
+        <div class="content-grid">
+            @foreach (var content in FilteredContent)
+            {
+                <article class="content-card" @key="content.Id">
+                    <div class="content-thumbnail">
+                        @content.Icon
+                        <span class="content-type-badge type-@content.Type">@content.TypeLabel</span>
+                        @if (content.IsMembersOnly)
+                        {
+                            <span class="members-only-badge">🔒 KUN MEDLEMMER</span>
+                        }
+                    </div>
+                    <div class="content-body">
+                        <div class="content-category">@content.Category</div>
+                        <h3 class="content-title">@content.Title</h3>
+                        <p class="content-excerpt">@content.Excerpt</p>
+                        <div class="content-meta">
+                            <span>@content.Duration • @content.PublishedDate.ToString("MMM yyyy")</span>
+                            <div class="content-actions">
+                                <button class="action-btn" @onclick="@(() => LikeContent(content.Id))">❤️ @content.Likes</button>
+                                <button class="action-btn" @onclick="@(() => CommentContent(content.Id))">💬 @content.Comments</button>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            }
+        </div>
+    </main>
+</div>
+
+<!-- Chatbot -->
+<div class="chatbot-container @(IsChatOpen ? "open" : "")" id="chatbot">
+    <div class="chatbot-header">
+        <div class="chatbot-title"><span>🤖</span><span>Personlig AI Assistent</span></div>
+        <div class="chatbot-status"><span class="status-dot"></span><span>@(IsAiOnline ? "Online" : "Offline")</span></div>
+    </div>
+    <div class="chatbot-body">
+        @foreach (var m in ChatMessages)
+        {
+            <div class="chat-message @(m.IsBot ? "message-bot" : "message-user")">@((MarkupString)m.Text)</div>
+        }
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" class="chat-input" placeholder="Skriv besked..." @bind="CurrentMessage" />
+        <button class="send-btn" @onclick="SendMessage">Send</button>
+    </div>
+</div>
+<button class="chat-toggle @(IsChatOpen ? "active" : "")" @onclick="ToggleChat">@(IsChatOpen ? "✕" : "💬")</button>
+
+@code {
+    private string UserName = "Maria";
+    private DateTime MemberSince = DateTime.Now.AddDays(-27);
+    private int CompletedCourses = 2, TotalCourses = 3, ReadArticles = 15, HoursWatched = 12;
+    private int ProgressPercentage = 65;
+    private int DaysAsMember => (DateTime.Now - MemberSince).Days;
+
+    private string CurrentFilter = "all";
+    private string CurrentCategory = "";
+    private bool IsChatOpen, IsAiOnline = true;
+    private string CurrentMessage = "";
+    private List<ChatMessage> ChatMessages = new();
+
+    private List<Content> AllContent = new();
+    private List<Content> FilteredContent = new();
+
+    private Dictionary<string, string> Categories = new() {
+        { "health", "Sundhed" }, { "spirituality", "Spiritualitet" },
+        { "meditation", "Meditation" }, { "nutrition", "Ernæring" },
+        { "reviews", "Anmeldelser" }
+    };
+
+    private Dictionary<string, string> ContentTypes = new() {
+        { "all", "Alt Indhold" }, { "video", "🎥 Videoer" },
+        { "blog", "📝 Blogs" }, { "audio", "🎧 Lyd" },
+        { "course", "🎓 Kurser" }
+    };
+
+    protected override void OnInitialized()
+    {
+        LoadContent();
+        FilteredContent = AllContent;
+        ChatMessages.Add(new()
+        {
+            Id = 1,
+            IsBot = true,
+            Text = "Hej Maria! 👋 Jeg er din personlige assistent. Hvad kan jeg hjælpe dig med i dag?"
+        });
+    }
+
+    private void LoadContent()
+    {
+        AllContent = new() {
+            new Content { Id=1, Type="video", TypeLabel="VIDEO", Icon="🎥",
+                Category="Meditation", Title="Dyb Meditation", Excerpt="45 min guidet meditation...",
+                Duration="45 min", PublishedDate=DateTime.Now.AddDays(-2),
+                IsMembersOnly=true, Likes=24, Comments=8 },
+            new Content { Id=2, Type="blog", TypeLabel="ARTIKEL", Icon="📖",
+                Category="Anmeldelse", Title="The Science of Heart", Excerpt="Forskning i hjertets intelligens...",
+                Duration="8 min", PublishedDate=DateTime.Now.AddDays(-10),
+                IsMembersOnly=false, Likes=42, Comments=15 }
+        };
+    }
+
+    private void FilterContent(string type)
+    {
+        CurrentFilter = type;
+        FilteredContent = type == "all" ? AllContent : AllContent.Where(c => c.Type == type).ToList();
+    }
+
+    private void FilterByCategory(string category)
+    {
+        CurrentCategory = category;
+        FilteredContent = AllContent.Where(c => c.Category.ToLower().Contains(Categories[category].ToLower())).ToList();
+    }
+
+    private void LikeContent(int id) => AllContent.First(c => c.Id == id).Likes++;
+
+    private void CommentContent(int id) => Navigation.NavigateTo($"/content/{id}#comments");
+
+    private void ToggleChat() => IsChatOpen = !IsChatOpen;
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(CurrentMessage)) return;
+        ChatMessages.Add(new() { Id = ChatMessages.Count + 1, IsBot = false, Text = CurrentMessage });
+        var message = CurrentMessage.ToLower();
+        CurrentMessage = "";
+        await Task.Delay(500);
+        string reply = message.Contains("kursus") ? "Du har adgang til 3 kurser." :
+                       message.Contains("video") ? "Der er 12 videoer tilgængelige." :
+                       "Fortæl mig mere om, hvad du vil vide.";
+        ChatMessages.Add(new() { Id = ChatMessages.Count + 1, IsBot = true, Text = reply });
+    }
+
+    public class Content
+    {
+        public int Id { get; set; }
+        public string Type { get; set; } = "";
+        public string TypeLabel { get; set; } = "";
+        public string Icon { get; set; } = "";
+        public string Category { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Excerpt { get; set; } = "";
+        public string Duration { get; set; } = "";
+        public DateTime PublishedDate { get; set; }
+        public bool IsMembersOnly { get; set; }
+        public int Likes { get; set; }
+        public int Comments { get; set; }
+    }
+
+    public class ChatMessage { public int Id { get; set; } public bool IsBot { get; set; } public string Text { get; set; } = ""; }
+}

@@ -1,30 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Contact;
-using Microsoft.EntityFrameworkCore;
+﻿using Domain.Contact;
 using Domain.Content.Entities;
-using Application.Features.Posts.Contracts;
+using Domain.UserProfile;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
-        public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        { }
 
-        public DbSet<BasePost> Posts => Set<BasePost>();
-        public DbSet<Domain.Content.Entities.Post> Posts => Set<Domain.Content.Entities.Post>();
 
-        public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options) { }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<Post> Posts { get; set; } // kun hvis du faktisk har en Post-klasse
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            // Automatisk hent alle konfigurationer i assembly
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+            base.OnModelCreating(builder);
+
+            // Relation mellem ApplicationUser og UserProfile
+            builder.Entity<UserProfile>()
+                .HasOne<ApplicationUser>()
+                .WithOne()
+                .HasForeignKey<UserProfile>(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

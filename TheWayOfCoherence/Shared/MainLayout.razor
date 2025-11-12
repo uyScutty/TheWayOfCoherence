@@ -1,20 +1,32 @@
 ﻿@inherits LayoutComponentBase
 
-<PageTitle>TheWayOfCoherence</PageTitle>
+<PageTitle>The Way of Coherence</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<!-- Global navigation -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="/" class="logo">🌟 The Way of Coherence</a>
 
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+        <ul class="nav-links">
+            <li><NavLink href="/" Match="NavLinkMatch.All">Hjem</NavLink></li>
+            <li><NavLink href="/members">Medlemsområde</NavLink></li>
+            <li><NavLink href="/dashboard">Dashboard</NavLink></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <NavLink class="btn btn-primary" href="/members">Log ind</NavLink>
         </div>
+    </div>
+</nav>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+<!-- Main body -->
+<div class="layout-body">
+    @Body
 </div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 The Way of Coherence — Alle rettigheder forbeholdes.</p>
+    </div>
+</footer>

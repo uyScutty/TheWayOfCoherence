@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.Contact;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Configurations
 {
     public class ContactMessageConfiguration : IEntityTypeConfiguration<ContactMessage>
     {
-        public void Configure(EntityTypeBuilder<ContactMessage> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<ContactMessage> builder)
         {
             builder.ToTable("ContactMessages");
 

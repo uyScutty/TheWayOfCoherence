@@ -11,10 +11,20 @@ namespace Domain.Content.Entities
         public string ProductName { get; private set; }
         public int Rating { get; private set; } // 1–5
         public string ReviewText { get; private set; }
+        private ReviewPost() { }
+
+        public ReviewPost(Guid authorId, string title, string body, string productName, int rating, string reviewText)
+            : base(authorId, title, body)
+        {
+            ProductName = productName;
+            Rating = rating;
+            ReviewText = reviewText;
+        }
 
         public ReviewPost(string title, string authorId, string productName, int rating, string reviewText)
-            : base(title, authorId)
         {
+            Title = title;
+            AuthorId = authorId;
             ProductName = productName;
             Rating = rating;
             ReviewText = reviewText;

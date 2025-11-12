@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain;
-using Application.Features.UserProfiles.Dtos
+using Application.Features.UserProfiles.Dtos;
 using MediatR;
 using Application.Features.UserProfiles.Interfaces;
 
@@ -20,14 +20,10 @@ namespace Application.Features.UserProfiles.Queries
             CancellationToken ct)
         {
             var profiles = await _repo.ListAsync(ct);
-            return profiles.Select(p => new UserProfileDto(
-                p.Id,
-                p.UserId,
-                p.DisplayName,
-                p.Bio,
-                p.AvatarUrl,
-                p.CreatedAt
-            ));
+            return profiles.Select(static p => new UserProfileDto(p.Id,p.UserId, p.Age, p.Gender, p.
+                HealthNote)
+
+            );
         }
     }
 }

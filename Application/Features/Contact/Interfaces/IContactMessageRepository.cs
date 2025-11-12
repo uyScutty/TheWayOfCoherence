@@ -11,10 +11,10 @@ namespace Application.Features.Contact.Interfaces;
 public interface IContactMessageRepository
 {
     Task AddAsync(ContactMessage message, CancellationToken ct);
-    Task<IEnumerable<ContactMessage>> ListAsync(ContactStatus? status, CancellationToken ct);
+    Task<IEnumerable<ContactMessage>> ListAsync(CancellationToken ct);
 
     Task SaveChangesAsync(CancellationToken ct);
 
-    Task <ContactMessage> ListAsync(CancellationToken ct);
+  
 
 }

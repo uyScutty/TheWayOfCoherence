@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Domain.UserProfile;
 using Application.Features.UserProfiles.Interfaces;
 using MediatR;
-using Application.Features.UserPefiles.Commands;
+using Application.Features.UserProfiles.Commands;
 
 
 namespace Application.Features.UserProfiles.Commands
@@ -23,7 +23,7 @@ namespace Application.Features.UserProfiles.Commands
         public async Task<Guid> Handle(UserProfileSignupCommand cmd, CancellationToken ct)
         {
             var profile = new UserProfile(
-                cmd.Id,
+           
                 cmd.UserId,
                 cmd.Age,
                 cmd.Gender,
@@ -33,5 +33,7 @@ namespace Application.Features.UserProfiles.Commands
             await _repo.SaveChangesAsync(ct);
             return profile.Id;
         }
+
+     
     }
 }

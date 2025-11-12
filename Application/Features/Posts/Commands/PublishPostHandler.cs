@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.Posts.Contracts;
+using Domain.Content.Entities;
 using Domain.Shared;
+
 
 namespace Application.Features.Posts.Commands
 
@@ -34,8 +36,7 @@ namespace Application.Features.Posts.Commands
             if (post == null)
                 throw new InvalidOperationException("Post not found.");
 
-            // 2️⃣ Vi antager at BasePost (eller dens subklasse) har metoden Publish()
-            // Hvis Publish er defineret i BasePost eller kun i BlogPost, kan vi caste
+            // 2️⃣ Publicér posten (via domain-metode)
             if (post is IPublishable publishablePost)
                 publishablePost.Publish();
             else
@@ -45,13 +46,15 @@ namespace Application.Features.Posts.Commands
             await _postRepository.UpdateAsync(post);
 
             // 4️⃣ Dispatch alle rejste Domain Events
+            // Sørg for at alle events implementerer Domain.Shared.IDomainEvent
             foreach (var domainEvent in post.DomainEvents)
                 await _eventDispatcher.DispatchAsync(domainEvent);
 
-            // 5️⃣ Ryd listen, så events ikke rejses igen ved næste save
+            // 5️⃣ Ryd listen, så events ikke rejses igen
             post.ClearDomainEvents();
         }
+
     }
-    }
+}
 
 

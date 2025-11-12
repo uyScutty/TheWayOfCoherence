@@ -10,7 +10,7 @@ namespace Application.Features.Posts.Contracts
 {
     public interface IPostRepository
     {
-        Task<BasePost?> GetByIdAsync(Guid id);
-        Task UpdateAsync(BasePost post);
+        Task<Post?> GetByIdAsync(Guid id);
+        Task UpdateAsync(Post post);
     }
 }

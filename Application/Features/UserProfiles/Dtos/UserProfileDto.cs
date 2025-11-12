@@ -9,13 +9,16 @@ namespace Application.Features.UserProfiles.Dtos
 {
     public record UserProfileDto
     (
+       
         Guid Id,
     Guid UserId,
-    int Age,
+    string Age,
     String Gender,
     string HealthNote
-    );
+    )
+    {
     }
+}
 
 
 

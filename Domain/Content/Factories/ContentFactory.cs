@@ -10,10 +10,10 @@ namespace Domain.Content.Factories
     public static class ContentFactory
     {
         // Minimum-API: tre overloads så Application kan skabe det rigtige uden new
-        public static BlogPost CreateBlog(string title, string authorId, string body, string? imageUrl = null)
-            => new BlogPost(title, authorId, body, imageUrl);
+        public static BlogPost CreateBlog(string title, Guid authorId, string body, string? imageUrl = null)
+            => new BlogPost(authorId,title, body, imageUrl);
 
-        public static VideoPost CreateVideo(string title, string authorId, string videoUrl, string? description = null)
+        public static VideoPost CreateVideo(string title, Guid authorId, string videoUrl, string? description = null)
             => new VideoPost(title, authorId, videoUrl, description);
 
         public static ReviewPost CreateReview(string title, string authorId, string productName, int rating, string reviewText)

@@ -11,8 +11,8 @@ namespace Domain.Content.Entities
         public string VideoUrl { get; private set; }
         public string? Description { get; private set; }
 
-        public VideoPost(string title, string authorId, string videoUrl, string? description = null)
-            : base(title, authorId)
+        public VideoPost(string title, Guid authorId, string body,string videoUrl, string? description = null)
+            : base(authorId, title, body)
         {
             VideoUrl = videoUrl;
             Description = description;

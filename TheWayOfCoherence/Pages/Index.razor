@@ -1,0 +1,270 @@
+@page "/"
+@layout MainLayout
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
+
+<PageTitle>The Way of Coherence</PageTitle>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <h1>VEJEN TIL KOHÆRENS</h1>
+    <p class="hero-subtitle">Mestring af ens miljø er frihed og giver mere energi</p>
+    <p class="hero-description">
+        Intentionen med denne hjemmeside er at assistere udviklingen af vores fælles bevidsthed
+        med bare fødder i jorden og kroppen i solen. Jeg tror på, at menneskeheden kan trives
+        og ikke bare overleve.
+    </p>
+    <button class="btn btn-primary" @onclick="@(() => ScrollToSection("services"))">Udforsk Mere</button>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+    <h2 class="section-title">Hvad er Kohærens?</h2>
+    <div class="cards-grid">
+        @foreach (var card in AboutCards)
+        {
+            <div class="card" @key="card.Id">
+                <div class="card-icon">@card.Icon</div>
+                <h3>@card.Title</h3>
+                <p>@card.Description</p>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Services -->
+<section class="section" id="services">
+    <h2 class="section-title">Mine Tjenester</h2>
+    <div class="cards-grid">
+        @foreach (var service in Services)
+        {
+            <div class="card" @key="service.Id">
+                <div class="card-icon">@service.Icon</div>
+                <h3>@service.Title</h3>
+                <p>@service.Description</p>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Blog -->
+<section class="section" id="blog">
+    <h2 class="section-title">Seneste Blog Indlæg</h2>
+    <div class="blog-grid">
+        @foreach (var post in BlogPosts)
+        {
+            <article class="blog-card" @key="post.Id">
+                <div class="blog-image">@post.Icon</div>
+                <div class="blog-content">
+                    <span class="blog-category">@post.Category</span>
+                    <h3 class="blog-title">@post.Title</h3>
+                    <p class="blog-excerpt">@post.Excerpt</p>
+                    <a href="/blog/@post.Id" class="read-more">Læs mere →</a>
+                </div>
+            </article>
+        }
+    </div>
+</section>
+
+<!-- AI Bots -->
+<section class="ai-section">
+    <h2 class="section-title">AI Assistenter @(AiBotsEnabled ? "(Aktive)" : "(Kommer Snart)")</h2>
+    <div class="ai-bots">
+        @foreach (var bot in AiBots)
+        {
+            <div class="ai-bot" @key="bot.Id">
+                <div class="ai-bot-icon">@bot.Icon</div>
+                <h3>@bot.Name</h3>
+                <p>@bot.Description</p>
+                <button class="btn btn-secondary" disabled="@(!bot.IsActive)" @onclick="@(() => ActivateBot(bot.Id))">
+                    @(bot.IsActive ? "Aktiver" : "Kommer Snart")
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Membership -->
+<section class="membership" id="membership">
+    <h2>Bliv Medlem af Fællesskabet</h2>
+    <p>
+        Jeg har valgt at gøre siden gratis og uden reklamer, men hvis du sætter pris på indholdet,
+        kan du blive medlem og blive notificeret ved nye posts.
+    </p>
+
+    <div class="membership-benefits">
+<Component />    </div>
+
+    <button class="btn btn-primary" @onclick="ShowMembershipModal">Bliv Medlem Nu</button>
+
+    @if (ShowBitcoinDonation)
+    {
+        <p style="margin-top: 2rem; color: var(--text-light);">
+            Støt med Bitcoin Lightning: <br />
+            <code style="background: var(--bg-light); padding: 0.5rem; border-radius: 4px;">
+                @BitcoinAddress
+            </code>
+        </p>
+    }
+</section>
+
+<!-- Chat Widget -->
+@if (ShowChatWidget)
+{
+    <div class="chat-widget" @onclick="OpenChat">💬</div>
+}
+
+<!-- Membership Modal -->
+@if (ShowMembershipModalDialog)
+{
+    <div class="modal-overlay" @onclick="CloseMembershipModal">
+        <div class="modal-content" @onclick:stopPropagation="true">
+            <div class="modal-header">
+                <h2>Bliv Medlem</h2>
+                <button class="close-btn" @onclick="CloseMembershipModal">✕</button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@MembershipForm" OnValidSubmit="@HandleMembershipSubmit">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <label>Navn:</label>
+                        <InputText class="form-control" @bind-Value="MembershipForm.Name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <InputText class="form-control" @bind-Value="MembershipForm.Email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Medlemstype:</label>
+                        <InputSelect class="form-control" @bind-Value="MembershipForm.MembershipType">
+                            <option value="basic">Basis (Gratis)</option>
+                            <option value="premium">Premium (199 kr/md)</option>
+                            <option value="vip">VIP (499 kr/md)</option>
+                        </InputSelect>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Tilmeld</button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+@code {
+    // ---- Simple state ----
+    private bool ShowMembershipModalDialog = false;
+    private bool ShowChatWidget = true;
+    private bool ShowBitcoinDonation = true;
+    private bool AiBotsEnabled = false;
+
+    private string BitcoinAddress = "lightning:lnbc...";
+    private string ContactEmail = "info@wayofcoherence.com";
+
+    private MembershipFormModel MembershipForm = new();
+
+    // ---- Data lists (no fancy C# features) ----
+    private List<AboutCard> AboutCards = new()
+    {
+        new AboutCard { Id = 1, Icon = "💖", Title = "Hjerte-Hjerne Synkronisering", Description = "Kohærens er en tilstand af synkronisering..." },
+        new AboutCard { Id = 2, Icon = "🌞", Title = "Naturlig Sundhed", Description = "Lær hvordan du bruger lys, vand og meditation..." },
+        new AboutCard { Id = 3, Icon = "🧘", Title = "Bevidsthed & Spiritualitet", Description = "Udforsk vejen til højere bevidsthed..." }
+    };
+
+    private List<Service> Services = new()
+    {
+        new Service { Id = 1, Icon = "🔬", Title = "Sundhedsvidenskab", Description = "Evidensbaseret tilgang til naturlig sundhed..." },
+        new Service { Id = 2, Icon = "🌿", Title = "Holistisk Terapi", Description = "Refleksterapi og energiarbejde for balance..." },
+        new Service { Id = 3, Icon = "📚", Title = "Personlig Konsultation", Description = "En times konsultation kan arrangeres efter aftale..." }
+    };
+
+    private List<BlogPost> BlogPosts = new()
+    {
+        new BlogPost {
+            Id = 1, Icon = "📱", Category = "Teknologi & Sundhed",
+            Title = "Skærm: Børn med åben mund og lukkede ører",
+            Excerpt = "Udforsk hvordan skærmtid påvirker vores børns udvikling...",
+            PublishedDate = DateTime.Now.AddDays(-5)
+        },
+        new BlogPost {
+            Id = 2, Icon = "🎗️", Category = "Sundhed",
+            Title = "Hvad jeg ville gøre med kræft",
+            Excerpt = "En holistisk tilgang til forebyggelse og håndtering...",
+            PublishedDate = DateTime.Now.AddDays(-10)
+        },
+        new BlogPost {
+            Id = 3, Icon = "💰", Category = "Økonomi",
+            Title = "Bitcoin & Pengerevolutionen",
+            Excerpt = "Forstå hvorfor decentraliseret valuta kan give frihed...",
+            PublishedDate = DateTime.Now.AddDays(-15)
+        }
+    };
+
+    private List<AiBot> AiBots = new()
+    {
+        new AiBot { Id = 1, Icon = "🤖", Name = "Vejlednings Bot", Description = "Hjælp til navigation", IsActive = false },
+        new AiBot { Id = 2, Icon = "👥", Name = "Medlems Assistent", Description = "Personlig vejledning", IsActive = false },
+        new AiBot { Id = 3, Icon = "🔧", Name = "Admin Bot", Description = "Admin-opgaver", IsActive = false }
+    };
+
+    // ---- Methods used by markup ----
+    private async Task ScrollToSection(string sectionId)
+        => await JSRuntime.InvokeVoidAsync("scrollToElement", sectionId);
+
+    private void ShowMembershipModal() => ShowMembershipModalDialog = true;
+    private void CloseMembershipModal() => ShowMembershipModalDialog = false;
+    private void OpenChat() { /* no-op for now */ }
+    private void ActivateBot(int id) => Console.WriteLine($"Bot {id} aktiveret");
+
+    private async Task HandleMembershipSubmit()
+    {
+        Console.WriteLine($"Ny medlem: {MembershipForm.Name}, {MembershipForm.Email}, {MembershipForm.MembershipType}");
+        ShowMembershipModalDialog = false;
+        await Task.CompletedTask;
+    }
+
+    // ---- Plain POCOs (no records) ----
+    public class AboutCard
+    {
+        public int Id { get; set; }
+        public string Icon { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+
+    public class Service
+    {
+        public int Id { get; set; }
+        public string Icon { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Description { get; set; } = "";
+    }
+
+    public class BlogPost
+    {
+        public int Id { get; set; }
+        public string Icon { get; set; } = "";
+        public string Category { get; set; } = "";
+        public string Title { get; set; } = "";
+        public string Excerpt { get; set; } = "";   // <-- used by markup
+        public DateTime PublishedDate { get; set; }
+    }
+
+    public class AiBot
+    {
+        public int Id { get; set; }
+        public string Icon { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string Description { get; set; } = "";
+        public bool IsActive { get; set; }
+    }
+
+    public class MembershipFormModel
+    {
+        public string Name { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string MembershipType { get; set; } = "basic";
+    }
+}
