@@ -1,1 +1,42 @@
+# Visual Studio
 .vs/
+*.user
+*.suo
+
+# Build output
+bin/
+obj/
+out/
+
+# VSCode
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+
+# Logs
+*.log
+
+# ASP.NET Core
+Properties/launchSettings.json
+
+# EF Core migrations cache
+Migrations/**/Designer.cs
+
+# User secrets
+**/secrets.json
+
+# IIS Express
+.vs/YourProjectName/config/*
+applicationhost.config
+
+# DotNet Tools
+.dotnet-tools/
+
+# Rider IDE
+.idea/
+
+# Optional: Node / frontend (hvis der kommer noget AI widgets etc.)
+node_modules/
+dist/
