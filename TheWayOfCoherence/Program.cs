@@ -1,12 +1,14 @@
 ﻿using Application;
 using Infrastructure;
 using Infrastructure.Persistence;
+using Application.Abstractions.Contracts.Gateways;
+using Infrastructure.Gateways;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Infrastructure;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,16 +22,16 @@ builder.Services.AddControllersWithViews();
 // ------------------------------------------------------
 // 2️⃣ Application & Infrastructure layers
 // ------------------------------------------------------
+// Tilføj base URL til Python-microservice
+string aiBaseUrl = builder.Configuration.GetValue<string>("AIService:BaseUrl")
+                   ?? "http://localhost:8000"; // Python endpoint
+
 builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, aiBaseUrl);
 
 // ------------------------------------------------------
 // 3️⃣ Authentication & Authorization (custom login)
 // ------------------------------------------------------
-// Hvis du senere tilføjer Identity:
-// builder.Services.AddDefaultIdentity<ApplicationUser>()
-//     .AddEntityFrameworkStores<AppDbContext>();
-
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = "Cookies";

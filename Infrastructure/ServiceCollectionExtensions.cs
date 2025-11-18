@@ -1,15 +1,19 @@
-﻿using Application.Abstractions.Contracts;
-using Application.Abstractions.Contracts.Gateways;
+﻿using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
-using Application.Features.Membership.Handlers;
 using Application.Features.Membership.Interfaces;
 using Application.Features.UserProfiles.Interfaces;
 
+using Domain.Shared;
+
 using Infrastructure.Events;
 using Infrastructure.Gateways;
-using Infrastructure.Identity;
 using Infrastructure.Persistence;
+using Infrastructure.Persistence.Events;
+using Infrastructure.Persistence.Gateways;
 using Infrastructure.Persistence.Repositories;
+
+using Infrastructure.Identity;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config, string aiBaseUrl)
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
@@ -45,6 +49,13 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IMembershipRepository, MembershipRepository>();
 
+
+        //AI Gateway 
+        services.AddHttpClient<IAIChatGateway, AIChatGateway>(client =>
+        {
+            client.BaseAddress = new Uri(aiBaseUrl); //Skal ændres til den hostede python microservice (til bots)
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
 
         return services;
     }
