@@ -1,9 +1,10 @@
-﻿using Application.Features.UserProfiles.Dtos;
+﻿using Application.Features.UserProfiles.Commands;
+using Application.Features.UserProfiles.Dtos;
 using Application.Features.UserProfiles.Interfaces;
 using Application.Features.UserProfiles.Mappers;
 using MediatR;
 
-namespace Application.Features.UserProfiles.Commands {
+namespace Application.Features.UserProfiles.Handlers {
     public class UserProfileUpdateHandler
             : IRequestHandler<UserProfileUpdateCommand, UserProfileDto>
     {

@@ -7,16 +7,8 @@ using Domain.Shared;
 
 namespace Domain.Content.Events
 {
-    public class PostPublishedEvent : IDomainEvent
+    public record PostPublishedEvent(Guid PostId, string Title) : IDomainEvent
     {
-        public Guid PostId { get; }
-        public string Title { get; }
         public DateTime OccurredOn { get; } = DateTime.UtcNow;
-
-        public PostPublishedEvent(Guid postId, string title)
-        {
-            PostId = postId;
-            Title = title;
-        }
     }
 }

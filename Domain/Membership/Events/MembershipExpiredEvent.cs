@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.Persistence.Gateways
+namespace Domain.Membership.Events
 {
-    internal class AIChatGateway
+    internal class MembershipExpiredEvent
     {
     }
 }

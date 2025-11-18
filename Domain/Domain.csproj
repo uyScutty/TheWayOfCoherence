@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Content\Common\" />
+    <Folder Include="Users\Events\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,16 +1,19 @@
-﻿using Application.Abstractions.Contracts.Gateways;
+﻿using Application.Abstractions.Contracts;
+using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
+using Application.Features.Membership.Handlers;
+using Application.Features.Membership.Interfaces;
 using Application.Features.UserProfiles.Interfaces;
-using Domain.Shared;
+
+using Infrastructure.Events;
+using Infrastructure.Gateways;
+using Infrastructure.Identity;
 using Infrastructure.Persistence;
-using Infrastructure.Persistence.Events;
-using Infrastructure.Persistence.Gateways;
 using Infrastructure.Persistence.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Identity;
 
 public static class ServiceCollectionExtensions
 {
@@ -37,7 +40,11 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IContactMessageRepository, ContactMessageRepository>();
         services.AddScoped<IUserProfileRepository, UserProfileRepository>();
         services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
-        services.AddScoped<IDomainEventDispatcher, EventDomainDispatcher>();
+        services.AddScoped<IMembershipRepository, MembershipRepository>();
+        services.AddScoped<IIdentityService, IdentityService>();
+
+        services.AddScoped<IMembershipRepository, MembershipRepository>();
+
 
         return services;
     }

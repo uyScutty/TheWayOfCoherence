@@ -1,59 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Features.Posts.Contracts;
-using Domain.Content.Entities;
-using Domain.Shared;
+﻿using Application.Features.Posts.Contracts;
+using Application.Features.Posts.Commands;
+using MediatR;
 
-
-namespace Application.Features.Posts.Commands
-
+public class PublishPostCommandHandler : IRequestHandler<PublishPostCommand>
 {
-    /// <summary>
-    /// Use-case for at udgive et Post.
-    /// Rejser et domain event (PostPublishedEvent), som håndteres i Application-laget.
-    /// </summary>
-    public class PublishPostHandler
+    private readonly IPostRepository _posts;
+
+    public PublishPostCommandHandler(IPostRepository posts)
     {
-        private readonly IPostRepository _postRepository;
-        private readonly IDomainEventDispatcher _eventDispatcher;
+        _posts = posts;
+    }
 
-        public PublishPostHandler(IPostRepository postRepository, IDomainEventDispatcher eventDispatcher)
-        {
-            _postRepository = postRepository;
-            _eventDispatcher = eventDispatcher;
-        }
+    public async Task Handle(PublishPostCommand cmd, CancellationToken ct)
+    {
+        var post = await _posts.GetByIdAsync(cmd.PostId);
+        if (post == null)
+            throw new InvalidOperationException("Post not found.");
 
-        /// <summary>
-        /// Kaldes fra UI (fx Publish-knap) for at publicere et Post.
-        /// </summary>
-        public async Task HandleAsync(Guid postId)
-        {
-            // 1️⃣ Hent posten fra databasen
-            var post = await _postRepository.GetByIdAsync(postId);
-            if (post == null)
-                throw new InvalidOperationException("Post not found.");
+        post.Publish();
 
-            // 2️⃣ Publicér posten (via domain-metode)
-            if (post is IPublishable publishablePost)
-                publishablePost.Publish();
-            else
-                throw new InvalidOperationException("Post type cannot be published.");
-
-            // 3️⃣ Gem ændringen i databasen
-            await _postRepository.UpdateAsync(post);
-
-            // 4️⃣ Dispatch alle rejste Domain Events
-            // Sørg for at alle events implementerer Domain.Shared.IDomainEvent
-            foreach (var domainEvent in post.DomainEvents)
-                await _eventDispatcher.DispatchAsync(domainEvent);
-
-            // 5️⃣ Ryd listen, så events ikke rejses igen
-            post.ClearDomainEvents();
-        }
-
+        await _posts.UpdateAsync(post);
     }
 }
 

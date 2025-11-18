@@ -8,16 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Features\Membership\Queries\" />
-    <Folder Include="Features\Payments\Commands\" />
-    <Folder Include="Features\Payments\Interfaces\" />
-    <Folder Include="Features\Payments\Dtos\" />
-    <Folder Include="Features\Payments\Queries\" />
     <Folder Include="Features\Posts\Dtos\" />
     <Folder Include="Features\Posts\Queries\" />
-    <Folder Include="Features\Reviews\Contracts\" />
-    <Folder Include="Features\Reviews\Dtos\" />
-    <Folder Include="Features\Reviews\Commands\" />
-    <Folder Include="Features\Reviews\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

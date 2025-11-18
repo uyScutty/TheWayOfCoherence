@@ -1,6 +1,7 @@
 ﻿using System;
+using Domain.Shared;
 
-namespace Domain.UserProfile
+namespace Domain.Users
 {
     public class UserProfile
     {
@@ -19,6 +20,13 @@ namespace Domain.UserProfile
             Gender = gender;
             HealthNote = healthNote;
         }
+
+        // === Domænehændelser ===
+        private readonly List<IDomainEvent> _domainEvents = new();
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+        public void ClearDomainEvents() => _domainEvents.Clear();
+
+        // (Evt. flere metoder, fx UpdateBody, Unpublish osv.)
 
         // Domain-metode til opdatering (DDD-praksis)
         public void UpdateProfile(string age, string gender, string healthNote)

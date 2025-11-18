@@ -1,33 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Content.Events;
+﻿using Domain.Content.Events;
 using Domain.Shared;
 
 namespace Domain.Content.Entities
 {
-    public class BlogPost : BasePost, IPublishable
+    public class BlogPost : BasePost
     {
-       
         public string? ImageUrl { get; private set; }
 
-        private readonly List<object> _domainEvents = new(); // Fixed syntax error: removed extra '>'.
-
-        public IReadOnlyCollection<object> DomainEvents => _domainEvents.AsReadOnly();
+        private readonly List<IDomainEvent> _domainEvents = new();
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         private BlogPost() { }
 
         public BlogPost(Guid authorId, string title, string body, string? imageUrl = null)
-            : base(authorId, title, body)  // 👈 først kald til base
+            : base(authorId, title, body)
         {
-            ImageUrl = imageUrl;           // 👈 derefter egne felter
+            ImageUrl = imageUrl;
         }
 
         public override string GetSummary()
             => $"{Title} ({CreatedAt:dd/MM/yyyy})";
-    
 
         public void Publish()
         {
@@ -37,4 +29,5 @@ namespace Domain.Content.Entities
         public void ClearDomainEvents() => _domainEvents.Clear();
     }
 }
+
 

@@ -1,6 +1,7 @@
 ﻿using Domain.Contact;
 using Domain.Content.Entities;
-using Domain.UserProfile;
+using Domain.Membership;
+using Domain.Users;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -16,7 +17,11 @@ namespace Infrastructure.Persistence
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
-        public DbSet<Post> Posts { get; set; } // kun hvis du faktisk har en Post-klasse
+        public DbSet<Post> Posts { get; set; } 
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public DbSet<MembershipUser> Memberships { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -4,13 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Payments.Enums
+namespace Domain.Membership.Events
 {
-    public enum PaymentStatus
+    internal class MembershipActivatedEvent
     {
-        Pending,
-        Completed,
-        Failed,
-        Refunded
     }
 }

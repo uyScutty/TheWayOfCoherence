@@ -11,5 +11,6 @@ namespace Application.Abstractions.Contracts.Gateways
     public interface IEmailNotifier
     {
         Task SendAsync(string toEmail, string subject, string body);
+        
     }
 }

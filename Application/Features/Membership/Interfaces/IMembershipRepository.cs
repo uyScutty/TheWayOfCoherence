@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Features.Membership.Dtos;
+using Domain.Membership;
 
 namespace Application.Features.Membership.Interfaces
 {
     public interface IMembershipRepository
     {
-        Task<IEnumerable<MemberDto>> GetActiveMembersAsync();
+        Task<IEnumerable<MemberDto>> GetActiveMembersAsync(CancellationToken ct = default);
+        Task CreateAsync(MembershipUser membership, CancellationToken ct);
     }
-
-    public record MemberDto(Guid Id, string Email);
 }

@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.Payments.Enums
+namespace Infrastructure.Gateways
 {
-    public enum PaymentMethod
+    internal class RedisCache
     {
-        BTC,
-        Stripe
-        
     }
 }

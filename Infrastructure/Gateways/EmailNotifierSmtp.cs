@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Membership.Interfaces;
 
-namespace Infrastructure.Persistence.Gateways
+namespace Infrastructure.Gateways
 {
     public class EmailNotifierSmtp : IEmailNotifier
     {

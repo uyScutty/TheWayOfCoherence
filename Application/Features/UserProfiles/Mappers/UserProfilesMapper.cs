@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Application.Features.UserProfiles.Dtos;
-using Domain.UserProfile;
+using Domain.Users;
 
 namespace Application.Features.UserProfiles.Mappers
 {
