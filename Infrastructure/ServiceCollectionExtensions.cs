@@ -6,6 +6,7 @@ using Infrastructure.Persistence;
 using Infrastructure.Persistence.Events;
 using Infrastructure.Persistence.Gateways;
 using Infrastructure.Persistence.Repositories;
+using Infrastructure.Gateways;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config, string aiBaseUrl)
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
@@ -38,6 +39,13 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IUserProfileRepository, UserProfileRepository>();
         services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
         services.AddScoped<IDomainEventDispatcher, EventDomainDispatcher>();
+
+        //AI Gateway 
+        services.AddHttpClient<IAIChatGateway, AIChatGateway>(client =>
+        {
+            client.BaseAddress = new Uri(aiBaseUrl); //Skal ændres til den hostede python microservice (til bots)
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
 
         return services;
     }
