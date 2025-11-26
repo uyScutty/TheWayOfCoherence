@@ -1,6 +1,14 @@
 @page "/members"
+@using Application.Abstractions.Contracts.Gateways
+@using Application.Abstractions.Contracts.Gateways.Dtos
+@using Infrastructure.Gateways
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @inject NavigationManager Navigation
+@inject IAIChatGateway AIChatGateway
 @inject IJSRuntime JSRuntime
 @attribute [Authorize]
 @layout TheWayOfCoherenceWeb.Shared.MainLayout
@@ -135,6 +143,7 @@
     private int ProgressPercentage = 65;
     private int DaysAsMember => (DateTime.Now - MemberSince).Days;
 
+    private string UserRole = "patient"; // altid patient her
     private string CurrentFilter = "all";
     private string CurrentCategory = "";
     private bool IsChatOpen, IsAiOnline = true;
@@ -156,17 +165,50 @@
         { "course", "🎓 Kurser" }
     };
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         LoadContent();
         FilteredContent = AllContent;
-        ChatMessages.Add(new()
+
+        // Default rolle
+        string userRole = "guest";
+
+        // Hent authentication state
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            // Hent IdentityUser fra UserManager
+            var identityUser = await UserManager.GetUserAsync(user);
+            if (identityUser != null)
+            {
+                if (await UserManager.IsInRoleAsync(identityUser, "Admin"))
+                    userRole = "owner";      // Admin role
+                else
+                    userRole = "patient";    // Logget ind medlem
+            }
+        }
+
+        // Gem rolle til senere brug
+        UserRole = userRole;
+
+        // Tilføj første besked baseret på rolle
+        string welcomeMessage = userRole switch
+        {
+            "owner" => "Hej Admin! Jeg er din AI-assistent.",
+            "patient" => "Hej! Jeg er din personlige patient-assistent.",
+            _ => "Hej! Jeg er din generelle AI-assistent."
+        };
+
+        ChatMessages.Add(new ChatMessage
         {
             Id = 1,
             IsBot = true,
-            Text = "Hej Maria! 👋 Jeg er din personlige assistent. Hvad kan jeg hjælpe dig med i dag?"
+            Text = welcomeMessage
         });
     }
+
 
     private void LoadContent()
     {
@@ -203,15 +245,28 @@
     private async Task SendMessage()
     {
         if (string.IsNullOrWhiteSpace(CurrentMessage)) return;
-        ChatMessages.Add(new() { Id = ChatMessages.Count + 1, IsBot = false, Text = CurrentMessage });
-        var message = CurrentMessage.ToLower();
+
+        ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = false, Text = CurrentMessage });
+
+        var request = new ChatRequestDto
+        {
+            Role = UserRole,       // <-- brugerens rolle
+            Message = CurrentMessage
+        };
+
+        try
+        {
+            var response = await AIChatGateway.SendMessageAsync(request);
+            ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = true, Text = response.Response });
+        }
+        catch (Exception ex)
+        {
+            ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = true, Text = $"Fejl: {ex.Message}" });
+        }
+
         CurrentMessage = "";
-        await Task.Delay(500);
-        string reply = message.Contains("kursus") ? "Du har adgang til 3 kurser." :
-                       message.Contains("video") ? "Der er 12 videoer tilgængelige." :
-                       "Fortæl mig mere om, hvad du vil vide.";
-        ChatMessages.Add(new() { Id = ChatMessages.Count + 1, IsBot = true, Text = reply });
     }
+
 
     public class Content
     {

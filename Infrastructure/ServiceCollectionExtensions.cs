@@ -1,19 +1,13 @@
-﻿using Application.Abstractions.Contracts.Gateways;
+﻿using Application.Abstractions.Contracts;
+using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
 using Application.Features.Membership.Interfaces;
+using Application.Features.Posts.Contracts;
 using Application.Features.UserProfiles.Interfaces;
-
-using Domain.Shared;
-
-using Infrastructure.Events;
 using Infrastructure.Gateways;
-using Infrastructure.Persistence;
-using Infrastructure.Persistence.Events;
-using Infrastructure.Persistence.Gateways;
-using Infrastructure.Persistence.Repositories;
-
 using Infrastructure.Identity;
-
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,8 +40,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
-
-        services.AddScoped<IMembershipRepository, MembershipRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<IUserLookupService, UserLookupService>();
 
 
         //AI Gateway 
