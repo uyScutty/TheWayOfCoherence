@@ -1,6 +1,7 @@
 @page "/"
 @layout MainLayout
 @inject NavigationManager Navigation
+@inject Application.Abstractions.Contracts.Gateways.IChatService ChatService
 @inject IJSRuntime JSRuntime
 
 <PageTitle>The Way of Coherence</PageTitle>
@@ -109,9 +110,22 @@
 </section>
 
 <!-- Chat Widget -->
-@if (ShowChatWidget)
+<div class="chat-widget" @onclick="ToggleChat">
+    💬
+</div>
+
+@if (IsChatOpen)
 {
-    <div class="chat-widget" @onclick="OpenChat">💬</div>
+    <div class="chat-window">
+        <div class="chat-messages">
+            @foreach (var msg in ChatMessages)
+            {
+                <div class="chat-message">@msg</div>
+            }
+        </div>
+        <input @bind="ChatInput" @bind:event="oninput" placeholder="Skriv en besked..." />
+        <button class="btn btn-primary" @onclick="SendChat">Send</button>
+    </div>
 }
 
 <!-- Membership Modal -->
@@ -159,6 +173,11 @@
     private bool ShowChatWidget = true;
     private bool ShowBitcoinDonation = true;
     private bool AiBotsEnabled = false;
+    // Chat state
+    private bool IsChatOpen = false;
+    private string ChatInput = "";
+    private List<string> ChatMessages = new();
+
 
     private string BitcoinAddress = "lightning:lnbc...";
     private string ContactEmail = "info@wayofcoherence.com";
@@ -217,6 +236,32 @@
     private void CloseMembershipModal() => ShowMembershipModalDialog = false;
     private void OpenChat() { /* no-op for now */ }
     private void ActivateBot(int id) => Console.WriteLine($"Bot {id} aktiveret");
+    private void ToggleChat()
+    {
+        IsChatOpen = !IsChatOpen;
+    }
+
+    private async Task SendChat()
+    {
+        if (string.IsNullOrWhiteSpace(ChatInput))
+            return;
+
+        // Tilføj brugerbesked
+        ChatMessages.Add($"Du: {ChatInput}");
+
+        try
+        {
+            var response = await ChatService.SendChatAsync("guest", ChatInput);
+            ChatMessages.Add($"Bot: {response}");
+        }
+        catch (Exception ex)
+        {
+            ChatMessages.Add($"Bot: Fejl ved AI: {ex.Message}");
+        }
+
+        ChatInput = ""; // ryd input
+    }
+
 
     private async Task HandleMembershipSubmit()
     {

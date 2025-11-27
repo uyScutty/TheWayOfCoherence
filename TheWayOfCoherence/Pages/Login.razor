@@ -1,0 +1,54 @@
+﻿@page "/login"
+@inject HttpClient Http
+@inject NavigationManager Navigation
+
+<h3>Log ind</h3>
+
+<div class="login-form">
+    <label>Email</label>
+    <InputText @bind-Value="Email" type="email" class="form-control" />
+
+    <label>Password</label>
+    <InputText @bind-Value="Password" type="password" class="form-control" />
+
+    <button class="btn btn-primary" @onclick="HandleLogin">Log ind</button>
+
+    @if (!string.IsNullOrEmpty(ErrorMessage))
+    {
+        <p class="text-danger">@ErrorMessage</p>
+    }
+</div>
+
+@code {
+    private string Email = "";
+    private string Password = "";
+    private string ErrorMessage = "";
+
+    private async Task HandleLogin()
+    {
+        if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+        {
+            ErrorMessage = "Email og password skal udfyldes.";
+            return;
+        }
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("/api/login", new { Email, Password });
+
+            if (response.IsSuccessStatusCode)
+            {
+                Navigation.NavigateTo("/members");
+            }
+            else
+            {
+                var msg = await response.Content.ReadAsStringAsync();
+                ErrorMessage = msg;
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Fejl: {ex.Message}";
+        }
+    }
+}

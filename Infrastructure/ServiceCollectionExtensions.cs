@@ -17,9 +17,11 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config, string aiBaseUrl)
     {
+        // DbContext
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
+        // Identity
         services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
         {
             options.Password.RequireDigit = false;
@@ -28,13 +30,11 @@ public static class ServiceCollectionExtensions
             options.Password.RequireNonAlphanumeric = false;
             options.Password.RequiredLength = 6;
         })
- .AddEntityFrameworkStores<AppDbContext>()
- .AddDefaultTokenProviders()
- .AddSignInManager<SignInManager<ApplicationUser>>();
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders()
+        .AddSignInManager<SignInManager<ApplicationUser>>();
 
-
-
-        // ... dine repos / events / email
+        // Repositories, events og notifiers
         services.AddScoped<IContactMessageRepository, ContactMessageRepository>();
         services.AddScoped<IUserProfileRepository, UserProfileRepository>();
         services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
@@ -43,15 +43,20 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IUserLookupService, UserLookupService>();
 
-
-        //AI Gateway 
+        // Eksisterende AI Gateway
         services.AddHttpClient<IAIChatGateway, AIChatGateway>(client =>
         {
-            client.BaseAddress = new Uri(aiBaseUrl); //Skal ændres til den hostede python microservice (til bots)
+            client.BaseAddress = new Uri(aiBaseUrl); // eksisterende AI service
             client.Timeout = TimeSpan.FromSeconds(30);
+        });
+
+        // Ny Python Chat Gateway
+        services.AddHttpClient<IChatService, PythonChatGateway>(client =>
+        {
+            client.BaseAddress = new Uri("http://localhost:8000"); // Python microservice URL
+            client.Timeout = TimeSpan.FromMinutes(5);
         });
 
         return services;
     }
 }
-
