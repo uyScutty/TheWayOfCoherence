@@ -1,17 +1,13 @@
 @page "/members"
 @using Application.Abstractions.Contracts.Gateways
-@using Application.Abstractions.Contracts.Gateways.Dtos
-@using Infrastructure.Gateways
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity
+@using Infrastructure.Identity
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject UserManager<ApplicationUser> UserManager
 @inject NavigationManager Navigation
-@inject IAIChatGateway AIChatGateway
-@inject IJSRuntime JSRuntime
 @attribute [Authorize]
-@layout TheWayOfCoherenceWeb.Shared.MainLayout
+@layout MainLayout
 
 <PageTitle>Medlemsområde - The Way of Coherence</PageTitle>
 
@@ -167,46 +163,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        LoadContent();
-        FilteredContent = AllContent;
-
-        // Default rolle
-        string userRole = "guest";
-
-        // Hent authentication state
+        // Redirect til korrekt side baseret på rolle
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
         if (user.Identity != null && user.Identity.IsAuthenticated)
         {
-            // Hent IdentityUser fra UserManager
             var identityUser = await UserManager.GetUserAsync(user);
             if (identityUser != null)
             {
-                if (await UserManager.IsInRoleAsync(identityUser, "Admin"))
-                    userRole = "owner";      // Admin role
-                else
-                    userRole = "patient";    // Logget ind medlem
+                var isAdmin = await UserManager.IsInRoleAsync(identityUser, "Admin");
+                Navigation.NavigateTo(isAdmin ? "/owner" : "/patient", forceLoad: true);
+                return;
             }
         }
-
-        // Gem rolle til senere brug
-        UserRole = userRole;
-
-        // Tilføj første besked baseret på rolle
-        string welcomeMessage = userRole switch
-        {
-            "owner" => "Hej Admin! Jeg er din AI-assistent.",
-            "patient" => "Hej! Jeg er din personlige patient-assistent.",
-            _ => "Hej! Jeg er din generelle AI-assistent."
-        };
-
-        ChatMessages.Add(new ChatMessage
-        {
-            Id = 1,
-            IsBot = true,
-            Text = welcomeMessage
-        });
+        
+        // Hvis ikke logget ind, redirect til login
+        Navigation.NavigateTo("/login", forceLoad: true);
     }
 
 

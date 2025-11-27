@@ -1,0 +1,187 @@
+@page "/owner"
+@using Application.Abstractions.Contracts.Gateways
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@layout MainLayout
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>Owner Dashboard - The Way of Coherence</PageTitle>
+
+<div class="owner-container">
+    <div class="owner-header">
+        <h1>👑 Owner Dashboard</h1>
+        <p>Administrer dit indhold, medlemmer og brug din AI-assistent til at hjælpe med administrative opgaver.</p>
+    </div>
+
+    <div class="owner-content">
+        <div class="info-card">
+            <h3>🛠️ Hvad kan jeg hjælpe med?</h3>
+            <ul>
+                <li>Administrative opgaver og spørgsmål</li>
+                <li>Vejledning om indholdsstyring</li>
+                <li>Hjælp med medlemsadministration</li>
+                <li>Generelle råd om platformen</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Chatbot -->
+<div class="chatbot-container @(IsChatOpen ? "open" : "")" id="chatbot">
+    <div class="chatbot-header">
+        <div class="chatbot-title">
+            <span>🤖</span>
+            <span>Owner AI Assistent</span>
+        </div>
+        <div class="chatbot-status">
+            <span class="status-dot"></span>
+            <span>@(IsAiOnline ? "Online" : "Offline")</span>
+        </div>
+    </div>
+    <div class="chatbot-body" @ref="chatBodyRef">
+        @foreach (var msg in ChatMessages)
+        {
+            <div class="chat-message @(msg.IsBot ? "message-bot" : "message-user")">
+                @((MarkupString)msg.Text)
+            </div>
+        }
+        @if (IsLoading)
+        {
+            <div class="chat-message message-bot">
+                <em>Skriver...</em>
+            </div>
+        }
+    </div>
+    <div class="chatbot-footer">
+        <input type="text" 
+               class="chat-input" 
+               placeholder="Skriv besked..." 
+               @bind="CurrentMessage" 
+               @bind:event="oninput"
+               @onkeydown="HandleKeyPress"
+               disabled="@IsLoading" />
+        <button class="send-btn" @onclick="SendMessage" disabled="@IsLoading">
+            @(IsLoading ? "..." : "Send")
+        </button>
+    </div>
+</div>
+
+<button class="chat-toggle @(IsChatOpen ? "active" : "")" @onclick="ToggleChat">
+    @(IsChatOpen ? "✕" : "💬")
+</button>
+
+@code {
+    [Inject] private IChatService ChatService { get; set; } = null!;
+    [Inject] private IJSRuntime JSRuntime { get; set; } = null!;
+
+    private bool IsChatOpen = false;
+    private bool IsAiOnline = true;
+    private bool IsLoading = false;
+    private string CurrentMessage = "";
+    private ElementReference chatBodyRef;
+    private List<ChatMessage> ChatMessages = new();
+
+    private const string UserRole = "owner";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Add welcome message
+        ChatMessages.Add(new ChatMessage
+        {
+            Id = 1,
+            IsBot = true,
+            Text = "Hej Admin! Jeg er din AI-assistent. Jeg kan hjælpe dig med administrative opgaver, indholdsstyring og generelle spørgsmål om platformen. Hvad kan jeg hjælpe dig med i dag?"
+        });
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || IsChatOpen)
+        {
+            await ScrollToBottom();
+        }
+    }
+
+    private void ToggleChat()
+    {
+        IsChatOpen = !IsChatOpen;
+        if (IsChatOpen)
+        {
+            _ = ScrollToBottom();
+        }
+    }
+
+    private async Task SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(CurrentMessage) || IsLoading)
+            return;
+
+        var userMessage = CurrentMessage.Trim();
+        CurrentMessage = "";
+
+        // Add user message
+        ChatMessages.Add(new ChatMessage
+        {
+            Id = ChatMessages.Count + 1,
+            IsBot = false,
+            Text = userMessage
+        });
+
+        IsLoading = true;
+        StateHasChanged();
+        await ScrollToBottom();
+
+        try
+        {
+            var response = await ChatService.SendChatAsync(UserRole, userMessage);
+            
+            ChatMessages.Add(new ChatMessage
+            {
+                Id = ChatMessages.Count + 1,
+                IsBot = true,
+                Text = response
+            });
+        }
+        catch (Exception ex)
+        {
+            ChatMessages.Add(new ChatMessage
+            {
+                Id = ChatMessages.Count + 1,
+                IsBot = true,
+                Text = $"Beklager, der opstod en fejl: {ex.Message}"
+            });
+        }
+        finally
+        {
+            IsLoading = false;
+            StateHasChanged();
+            await ScrollToBottom();
+        }
+    }
+
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !e.ShiftKey && !IsLoading)
+        {
+            await SendMessage();
+        }
+    }
+
+    private async Task ScrollToBottom()
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("eval", 
+                "setTimeout(() => { const el = document.querySelector('.chatbot-body'); if (el) el.scrollTop = el.scrollHeight; }, 100);");
+        }
+        catch { }
+    }
+
+    public class ChatMessage
+    {
+        public int Id { get; set; }
+        public bool IsBot { get; set; }
+        public string Text { get; set; } = "";
+    }
+}
+

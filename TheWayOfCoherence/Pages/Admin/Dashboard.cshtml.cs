@@ -6,9 +6,10 @@ public class AdminDashboardModel : PageModel
     [BindProperty]
     public NewPostInput NewPost { get; set; } = new();
 
-    public void OnGet()
+    public IActionResult OnGet()
     {
-        // Could load initial data here if needed.
+        // Redirect til den nye Owner.razor side
+        return Redirect("/owner");
     }
 
     public IActionResult OnPost()

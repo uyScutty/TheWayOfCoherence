@@ -1,54 +1,123 @@
 ﻿@page "/login"
-@inject HttpClient Http
+@layout MainLayout
+@using System.Net.Http
+@using System.Net.Http.Json
+@inject IHttpClientFactory HttpClientFactory
 @inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 
-<h3>Log ind</h3>
+<PageTitle>Log Ind - The Way of Coherence</PageTitle>
 
-<div class="login-form">
-    <label>Email</label>
-    <InputText @bind-Value="Email" type="email" class="form-control" />
+<div class="login-container">
+    <div class="login-card">
+        <h2>Log Ind</h2>
+        <p>Log ind for at få adgang til dit medlemsområde</p>
 
-    <label>Password</label>
-    <InputText @bind-Value="Password" type="password" class="form-control" />
+        <EditForm Model="@LoginForm" OnValidSubmit="@HandleLogin">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-    <button class="btn btn-primary" @onclick="HandleLogin">Log ind</button>
+            @if (!string.IsNullOrEmpty(ErrorMessage))
+            {
+                <div class="alert alert-danger" style="padding: 0.75rem; margin-bottom: 1rem; background: #f8d7da; color: #721c24; border-radius: var(--border-radius);">
+                    @ErrorMessage
+                </div>
+            }
 
-    @if (!string.IsNullOrEmpty(ErrorMessage))
-    {
-        <p class="text-danger">@ErrorMessage</p>
-    }
+            <div class="form-group">
+                <label>Email:</label>
+                <InputText type="email" class="form-control" @bind-Value="LoginForm.Email" disabled="@IsLoggingIn" />
+            </div>
+
+            <div class="form-group">
+                <label>Password:</label>
+                <InputText type="password" class="form-control" @bind-Value="LoginForm.Password" disabled="@IsLoggingIn" />
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;" disabled="@IsLoggingIn">
+                @(IsLoggingIn ? "Logger ind..." : "Log Ind")
+            </button>
+        </EditForm>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+            <p>Har du ikke en konto? <a href="/" @onclick="@(() => Navigation.NavigateTo("/"))">Bliv medlem her</a></p>
+        </div>
+    </div>
 </div>
 
 @code {
-    private string Email = "";
-    private string Password = "";
+    private LoginFormModel LoginForm = new();
     private string ErrorMessage = "";
+    private bool IsLoggingIn = false;
 
     private async Task HandleLogin()
     {
-        if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+        ErrorMessage = "";
+
+        if (string.IsNullOrWhiteSpace(LoginForm.Email) || string.IsNullOrWhiteSpace(LoginForm.Password))
         {
             ErrorMessage = "Email og password skal udfyldes.";
             return;
         }
 
+        IsLoggingIn = true;
+        StateHasChanged();
+
         try
         {
-            var response = await Http.PostAsJsonAsync("/api/login", new { Email, Password });
+            var httpClient = HttpClientFactory.CreateClient();
+            httpClient.BaseAddress = new Uri(Navigation.BaseUri);
+            
+            var response = await httpClient.PostAsJsonAsync("/api/auth/login", new
+            {
+                Email = LoginForm.Email,
+                Password = LoginForm.Password
+            });
 
             if (response.IsSuccessStatusCode)
             {
-                Navigation.NavigateTo("/members");
+                var result = await response.Content.ReadFromJsonAsync<LoginResponse>();
+                if (result != null && result.Success && !string.IsNullOrEmpty(result.RedirectUrl))
+                {
+                    // Vent lidt for at sikre at sign-in cookie er sat
+                    await Task.Delay(500);
+                    
+                    // Brug JavaScript location.href for at sikre fuld page reload og korrekt authentication state
+                    await JSRuntime.InvokeVoidAsync("eval", $"window.location.href = '{result.RedirectUrl}';");
+                    return;
+                }
             }
             else
             {
-                var msg = await response.Content.ReadAsStringAsync();
-                ErrorMessage = msg;
+                var errorResult = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+                ErrorMessage = errorResult?.Error ?? "Fejl ved login.";
             }
         }
         catch (Exception ex)
         {
-            ErrorMessage = $"Fejl: {ex.Message}";
+            ErrorMessage = $"Fejl ved login: {ex.Message}";
         }
+        finally
+        {
+            IsLoggingIn = false;
+            StateHasChanged();
+        }
+    }
+
+    public class LoginFormModel
+    {
+        public string Email { get; set; } = "";
+        public string Password { get; set; } = "";
+    }
+
+    private class LoginResponse
+    {
+        public bool Success { get; set; }
+        public string? RedirectUrl { get; set; }
+    }
+
+    private class ErrorResponse
+    {
+        public string? Error { get; set; }
     }
 }

@@ -1,8 +1,13 @@
 @page "/"
 @layout MainLayout
+@using Application.Features.Users.Commands
+@using MediatR
+@using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager Navigation
 @inject Application.Abstractions.Contracts.Gateways.IChatService ChatService
 @inject IJSRuntime JSRuntime
+@inject IMediator Mediator
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>The Way of Coherence</PageTitle>
 
@@ -94,9 +99,24 @@
     </p>
 
     <div class="membership-benefits">
-<Component />    </div>
+        <div class="benefit">
+            <span class="benefit-icon">✓</span>
+            <span>Adgang til eksklusivt indhold</span>
+        </div>
+        <div class="benefit">
+            <span class="benefit-icon">✓</span>
+            <span>Personlig AI-assistent</span>
+        </div>
+        <div class="benefit">
+            <span class="benefit-icon">✓</span>
+            <span>Notifikationer om nye posts</span>
+        </div>
+    </div>
 
-    <button class="btn btn-primary" @onclick="ShowMembershipModal">Bliv Medlem Nu</button>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <button class="btn btn-primary" @onclick="ShowMembershipModal">Bliv Medlem Nu</button>
+        <button class="btn btn-secondary" @onclick="@(() => Navigation.NavigateTo("/login"))">Log Ind</button>
+    </div>
 
     @if (ShowBitcoinDonation)
     {
@@ -142,26 +162,43 @@
                     <DataAnnotationsValidator />
                     <ValidationSummary />
 
+                    @if (!string.IsNullOrEmpty(RegistrationErrorMessage))
+                    {
+                        <div class="alert alert-danger" style="padding: 0.75rem; margin-bottom: 1rem; background: #f8d7da; color: #721c24; border-radius: var(--border-radius);">
+                            @RegistrationErrorMessage
+                        </div>
+                    }
+
+                    @if (!string.IsNullOrEmpty(RegistrationSuccessMessage))
+                    {
+                        <div class="alert alert-success" style="padding: 0.75rem; margin-bottom: 1rem; background: #d4edda; color: #155724; border-radius: var(--border-radius);">
+                            @RegistrationSuccessMessage
+                        </div>
+                    }
+
                     <div class="form-group">
                         <label>Navn:</label>
-                        <InputText class="form-control" @bind-Value="MembershipForm.Name" />
+                        <InputText class="form-control" @bind-Value="MembershipForm.Name" disabled="@IsRegistering" />
                     </div>
 
                     <div class="form-group">
                         <label>Email:</label>
-                        <InputText class="form-control" @bind-Value="MembershipForm.Email" />
+                        <InputText type="email" class="form-control" @bind-Value="MembershipForm.Email" disabled="@IsRegistering" />
                     </div>
 
                     <div class="form-group">
-                        <label>Medlemstype:</label>
-                        <InputSelect class="form-control" @bind-Value="MembershipForm.MembershipType">
-                            <option value="basic">Basis (Gratis)</option>
-                            <option value="premium">Premium (199 kr/md)</option>
-                            <option value="vip">VIP (499 kr/md)</option>
-                        </InputSelect>
+                        <label>Password:</label>
+                        <InputText type="password" class="form-control" @bind-Value="MembershipForm.Password" disabled="@IsRegistering" />
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Tilmeld</button>
+                    <div class="form-group">
+                        <label>Bekræft Password:</label>
+                        <InputText type="password" class="form-control" @bind-Value="MembershipForm.ConfirmPassword" disabled="@IsRegistering" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" disabled="@IsRegistering">
+                        @(IsRegistering ? "Opretter..." : "Tilmeld")
+                    </button>
                 </EditForm>
             </div>
         </div>
@@ -263,11 +300,72 @@
     }
 
 
+    private bool IsRegistering = false;
+    private string RegistrationErrorMessage = "";
+    private string RegistrationSuccessMessage = "";
+
     private async Task HandleMembershipSubmit()
     {
-        Console.WriteLine($"Ny medlem: {MembershipForm.Name}, {MembershipForm.Email}, {MembershipForm.MembershipType}");
-        ShowMembershipModalDialog = false;
-        await Task.CompletedTask;
+        RegistrationErrorMessage = "";
+        RegistrationSuccessMessage = "";
+
+        // Validering
+        if (string.IsNullOrWhiteSpace(MembershipForm.Name))
+        {
+            RegistrationErrorMessage = "Navn skal udfyldes.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(MembershipForm.Email) || !MembershipForm.Email.Contains("@"))
+        {
+            RegistrationErrorMessage = "Ugyldig email.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(MembershipForm.Password) || MembershipForm.Password.Length < 6)
+        {
+            RegistrationErrorMessage = "Password skal være mindst 6 tegn.";
+            return;
+        }
+
+        if (MembershipForm.Password != MembershipForm.ConfirmPassword)
+        {
+            RegistrationErrorMessage = "Passwords matcher ikke.";
+            return;
+        }
+
+        IsRegistering = true;
+        StateHasChanged();
+
+        try
+        {
+            var command = new UserSignupCommand(
+                MembershipForm.Email,
+                MembershipForm.Password,
+                MembershipForm.Name
+            );
+
+            var userId = await Mediator.Send(command);
+
+            RegistrationSuccessMessage = "Bruger oprettet! Du kan nu logge ind.";
+            
+            // Vent lidt og luk modal
+            await Task.Delay(2000);
+            ShowMembershipModalDialog = false;
+            MembershipForm = new MembershipFormModel();
+            
+            // Naviger til login
+            Navigation.NavigateTo("/login");
+        }
+        catch (Exception ex)
+        {
+            RegistrationErrorMessage = $"Fejl ved oprettelse: {ex.Message}";
+        }
+        finally
+        {
+            IsRegistering = false;
+            StateHasChanged();
+        }
     }
 
     // ---- Plain POCOs (no records) ----
@@ -310,6 +408,7 @@
     {
         public string Name { get; set; } = "";
         public string Email { get; set; } = "";
-        public string MembershipType { get; set; } = "basic";
+        public string Password { get; set; } = "";
+        public string ConfirmPassword { get; set; } = "";
     }
 }
