@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Membership\Queries\" />
+    <Compile Remove="Features\Membership\Queries\**" />
+    <EmbeddedResource Remove="Features\Membership\Queries\**" />
+    <None Remove="Features\Membership\Queries\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Features\Posts\Dtos\" />
     <Folder Include="Features\Posts\Queries\" />
   </ItemGroup>

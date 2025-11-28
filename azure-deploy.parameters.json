@@ -6,7 +6,7 @@
       "value": "coherenceadmin"
     },
     "sqlAdminPassword": {
-      "value": "CHANGE_THIS_PASSWORD_IN_PRODUCTION!"
+      "value": "MyStr0ng!P@ssw0rd123"
     },
     "appServicePlanSku": {
       "value": "B1"

@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Content\Common\" />
-    <Folder Include="Users\Events\" />
+    <Compile Remove="Content\Common\**" />
+    <Compile Remove="Users\Events\**" />
+    <EmbeddedResource Remove="Content\Common\**" />
+    <EmbeddedResource Remove="Users\Events\**" />
+    <None Remove="Content\Common\**" />
+    <None Remove="Users\Events\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,4 @@
 // Azure Bicep template for deploying The Way of Coherence
-@description('The name of the resource group')
-param resourceGroupName string = 'rg-coherence-prod'
 
 @description('The location for all resources')
 param location string = resourceGroup().location
@@ -27,6 +25,77 @@ param appServicePlanSku string = 'B1' // Basic tier - change to S1, P1V2, etc. f
 
 @description('The SKU for the SQL Database')
 param sqlDatabaseSku string = 'Basic' // Basic tier - change to S0, S1, etc. for production
+
+// Key Vault
+var keyVaultName = 'kv-coherence-${uniqueString(resourceGroup().id)}'
+
+// Key Vault
+resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {
+  name: keyVaultName
+  location: location
+  properties: {
+    tenantId: subscription().tenantId
+    sku: {
+      family: 'A'
+      name: 'standard'
+    }
+    enabledForDeployment: false
+    enabledForTemplateDeployment: true
+    enabledForDiskEncryption: false
+    accessPolicies: [
+      {
+        tenantId: subscription().tenantId
+        objectId: subscription().tenantId // Will be updated with managed identity
+        permissions: {
+          secrets: ['get', 'list']
+        }
+      }
+    ]
+    networkAcls: {
+      defaultAction: 'Allow'
+      bypass: 'AzureServices'
+    }
+  }
+}
+
+// Store SQL Connection String in Key Vault
+resource sqlConnectionStringSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+  parent: keyVault
+  name: 'ConnectionStrings--DefaultConnection'
+  properties: {
+    value: 'Server=${sqlServer.properties.fullyQualifiedDomainName};Database=${sqlDatabaseName};User Id=${sqlAdminLogin};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;'
+  }
+}
+
+// App Service Managed Identity
+resource appServiceIdentity 'Microsoft.Web/sites/config@2023-01-01' = {
+  parent: appService
+  name: 'identity'
+  properties: {
+    type: 'SystemAssigned'
+  }
+}
+
+// Grant Key Vault access to App Service Managed Identity
+resource keyVaultAccessPolicy 'Microsoft.KeyVault/vaults/accessPolicies@2023-07-01' = {
+  parent: keyVault
+  name: 'app-service-access'
+  properties: {
+    accessPolicies: [
+      {
+        tenantId: subscription().tenantId
+        objectId: appServiceIdentity.properties.principalId
+        permissions: {
+          secrets: ['get', 'list']
+        }
+      }
+    ]
+  }
+  dependsOn: [
+    appService
+    appServiceIdentity
+  ]
+}
 
 // App Service Plan
 resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {
@@ -61,14 +130,15 @@ resource appService 'Microsoft.Web/sites@2023-01-01' = {
           value: 'Production'
         }
         {
-          name: 'ConnectionStrings__DefaultConnection'
-          value: 'Server=${sqlServer.properties.fullyQualifiedDomainName};Database=${sqlDatabaseName};User Id=${sqlAdminLogin};Password=${sqlAdminPassword};TrustServerCertificate=True;MultipleActiveResultSets=True'
-        }
-        {
           name: 'AIService__BaseUrl'
           value: 'http://localhost:8000' // Update if you have a separate AI service
         }
+        {
+          name: 'KeyVault__VaultUri'
+          value: keyVault.properties.vaultUri
+        }
       ]
+      keyVaultReferenceIdentity: appServiceIdentity.properties.principalId
     }
   }
 }
@@ -110,9 +180,28 @@ resource sqlFirewallRuleAzure 'Microsoft.Sql/servers/firewallRules@2023-05-01-pr
   }
 }
 
+// App Service Configuration - Reference Key Vault Secret
+resource appServiceConfig 'Microsoft.Web/sites/config@2023-01-01' = {
+  parent: appService
+  name: 'connectionstrings'
+  properties: {
+    DefaultConnection: {
+      type: 'AzureKeyVault'
+      value: '@Microsoft.KeyVault(SecretUri=${keyVault.properties.vaultUri}secrets/ConnectionStrings--DefaultConnection/)'
+    }
+  }
+  dependsOn: [
+    keyVault
+    sqlConnectionStringSecret
+    appServiceIdentity
+  ]
+}
+
 // Outputs
 output appServiceName string = appService.name
 output appServiceUrl string = 'https://${appService.properties.defaultHostName}'
 output sqlServerName string = sqlServer.name
 output sqlServerFqdn string = sqlServer.properties.fullyQualifiedDomainName
+output keyVaultName string = keyVault.name
+output keyVaultUri string = keyVault.properties.vaultUri
 
