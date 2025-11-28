@@ -1,4 +1,12 @@
 ﻿@inherits LayoutComponentBase
+@implements IDisposable
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@using Infrastructure.Identity
+@using Microsoft.JSInterop
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 
 <PageTitle>The Way of Coherence</PageTitle>
 
@@ -9,10 +17,28 @@
 
         <ul class="nav-links">
             <li><NavLink href="/" Match="NavLinkMatch.All">Hjem</NavLink></li>
+            @if (IsAuthenticated)
+            {
+                @if (IsAdmin)
+                {
+                    <li><NavLink href="/admin/dashboard">Admin Dashboard</NavLink></li>
+                }
+                else
+                {
+                    <li><NavLink href="/members">Medlemsområde</NavLink></li>
+                }
+            }
         </ul>
 
         <div class="nav-buttons">
-            <NavLink class="btn btn-primary" href="/login">Log ind</NavLink>
+            @if (IsAuthenticated)
+            {
+                <button class="btn btn-secondary" @onclick="HandleLogout">Log ud</button>
+            }
+            else
+            {
+                <NavLink class="btn btn-primary" href="/login">Log ind</NavLink>
+            }
         </div>
     </div>
 </nav>
@@ -28,3 +54,56 @@
         <p>&copy; 2025 The Way of Coherence — Alle rettigheder forbeholdes.</p>
     </div>
 </footer>
+
+@code {
+    private bool IsAuthenticated { get; set; }
+    private bool IsAdmin { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateAuthenticationState();
+        
+        // Subscribe to authentication state changes
+        AuthenticationStateProvider.AuthenticationStateChanged += OnAuthenticationStateChanged;
+    }
+
+    private async void OnAuthenticationStateChanged(Task<AuthenticationState> authStateTask)
+    {
+        await UpdateAuthenticationState();
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await UpdateAuthenticationState();
+    }
+
+    private async Task UpdateAuthenticationState()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        IsAuthenticated = authState.User.Identity?.IsAuthenticated ?? false;
+
+        if (IsAuthenticated)
+        {
+            // Tjek om brugeren er admin baseret på claims (undgår DbContext threading issues)
+            IsAdmin = authState.User.IsInRole("Admin");
+        }
+        else
+        {
+            IsAdmin = false;
+        }
+
+        StateHasChanged();
+    }
+
+    private async Task HandleLogout()
+    {
+        // Brug JavaScript til at kalde logout endpoint i stedet for SignInManager direkte
+        // Dette undgår "Headers are read-only" fejl i Blazor Server
+        await JSRuntime.InvokeVoidAsync("eval", "window.location.href = '/api/auth/logout';");
+    }
+
+    public void Dispose()
+    {
+        AuthenticationStateProvider.AuthenticationStateChanged -= OnAuthenticationStateChanged;
+    }
+}

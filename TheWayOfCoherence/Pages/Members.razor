@@ -1,11 +1,11 @@
 @page "/members"
-@using Application.Abstractions.Contracts.Gateways
 @using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Identity
-@using Infrastructure.Identity
+@using System.Security.Claims
+@using Application.Abstractions.Contracts.Gateways
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@inject UserManager<ApplicationUser> UserManager
 @inject NavigationManager Navigation
+@inject IChatService ChatService
+@inject IJSRuntime JSRuntime
 @attribute [Authorize]
 @layout MainLayout
 
@@ -116,21 +116,46 @@
 <!-- Chatbot -->
 <div class="chatbot-container @(IsChatOpen ? "open" : "")" id="chatbot">
     <div class="chatbot-header">
-        <div class="chatbot-title"><span>🤖</span><span>Personlig AI Assistent</span></div>
-        <div class="chatbot-status"><span class="status-dot"></span><span>@(IsAiOnline ? "Online" : "Offline")</span></div>
+        <div class="chatbot-title">
+            <span>🤖</span>
+            <span>@(IsAdmin ? "Owner AI Assistent" : "Patient AI Assistent")</span>
+        </div>
+        <div class="chatbot-status">
+            <span class="status-dot"></span>
+            <span>@(IsAiOnline ? "Online" : "Offline")</span>
+        </div>
     </div>
-    <div class="chatbot-body">
-        @foreach (var m in ChatMessages)
+    <div class="chatbot-body" @ref="chatBodyRef">
+        @foreach (var msg in ChatMessages)
         {
-            <div class="chat-message @(m.IsBot ? "message-bot" : "message-user")">@((MarkupString)m.Text)</div>
+            <div class="chat-message @(msg.IsBot ? "message-bot" : "message-user")">
+                @((MarkupString)msg.Text)
+            </div>
+        }
+        @if (IsLoading)
+        {
+            <div class="chat-message message-bot">
+                <em>Skriver...</em>
+            </div>
         }
     </div>
     <div class="chatbot-footer">
-        <input type="text" class="chat-input" placeholder="Skriv besked..." @bind="CurrentMessage" />
-        <button class="send-btn" @onclick="SendMessage">Send</button>
+        <input type="text" 
+               class="chat-input" 
+               placeholder="Skriv besked..." 
+               @bind="CurrentMessage" 
+               @bind:event="oninput"
+               @onkeydown="HandleKeyPress"
+               disabled="@IsLoading" />
+        <button class="send-btn" @onclick="SendMessage" disabled="@IsLoading">
+            @(IsLoading ? "..." : "Send")
+        </button>
     </div>
 </div>
-<button class="chat-toggle @(IsChatOpen ? "active" : "")" @onclick="ToggleChat">@(IsChatOpen ? "✕" : "💬")</button>
+
+<button class="chat-toggle @(IsChatOpen ? "active" : "")" @onclick="ToggleChat">
+    @(IsChatOpen ? "✕" : "💬")
+</button>
 
 @code {
     private string UserName = "Maria";
@@ -139,12 +164,17 @@
     private int ProgressPercentage = 65;
     private int DaysAsMember => (DateTime.Now - MemberSince).Days;
 
-    private string UserRole = "patient"; // altid patient her
+    private bool IsAdmin = false;
     private string CurrentFilter = "all";
     private string CurrentCategory = "";
-    private bool IsChatOpen, IsAiOnline = true;
+
+    private bool IsChatOpen = false;
+    private bool IsAiOnline = true;
+    private bool IsLoading = false;
     private string CurrentMessage = "";
+    private ElementReference chatBodyRef;
     private List<ChatMessage> ChatMessages = new();
+    private string UserRole => IsAdmin ? "owner" : "patient";
 
     private List<Content> AllContent = new();
     private List<Content> FilteredContent = new();
@@ -163,23 +193,43 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Redirect til korrekt side baseret på rolle
+        // Hent bruger info og rolle
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
         if (user.Identity != null && user.Identity.IsAuthenticated)
         {
-            var identityUser = await UserManager.GetUserAsync(user);
-            if (identityUser != null)
-            {
-                var isAdmin = await UserManager.IsInRoleAsync(identityUser, "Admin");
-                Navigation.NavigateTo(isAdmin ? "/owner" : "/patient", forceLoad: true);
-                return;
-            }
+            // Brug claims direkte for at undgå DbContext threading issues
+            UserName = user.Identity.Name ?? user.FindFirst(System.Security.Claims.ClaimTypes.Email)?.Value ?? "Bruger";
+            IsAdmin = user.IsInRole("Admin");
         }
-        
-        // Hvis ikke logget ind, redirect til login
-        Navigation.NavigateTo("/login", forceLoad: true);
+
+        // Redirect admin til dashboard
+        if (IsAdmin)
+        {
+            Navigation.NavigateTo("/admin/dashboard", forceLoad: true);
+            return;
+        }
+
+        // Load content
+        LoadContent();
+        FilteredContent = AllContent;
+
+        // Add welcome message til chatbot
+        ChatMessages.Add(new ChatMessage
+        {
+            Id = 1,
+            IsBot = true,
+            Text = "Hej! Jeg er din personlige patient-assistent. Jeg kan hjælpe dig med spørgsmål om sundhed, behandling og velvære. Hvad kan jeg hjælpe dig med i dag?"
+        });
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || IsChatOpen)
+        {
+            await ScrollToBottom();
+        }
     }
 
 
@@ -213,33 +263,86 @@
 
     private void CommentContent(int id) => Navigation.NavigateTo($"/content/{id}#comments");
 
-    private void ToggleChat() => IsChatOpen = !IsChatOpen;
+    private void ToggleChat()
+    {
+        IsChatOpen = !IsChatOpen;
+        if (IsChatOpen)
+        {
+            _ = ScrollToBottom();
+        }
+    }
 
     private async Task SendMessage()
     {
-        if (string.IsNullOrWhiteSpace(CurrentMessage)) return;
+        if (string.IsNullOrWhiteSpace(CurrentMessage) || IsLoading)
+            return;
 
-        ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = false, Text = CurrentMessage });
+        var userMessage = CurrentMessage.Trim();
+        CurrentMessage = "";
 
-        var request = new ChatRequestDto
+        // Add user message
+        ChatMessages.Add(new ChatMessage
         {
-            Role = UserRole,       // <-- brugerens rolle
-            Message = CurrentMessage
-        };
+            Id = ChatMessages.Count + 1,
+            IsBot = false,
+            Text = userMessage
+        });
+
+        IsLoading = true;
+        StateHasChanged();
+        await ScrollToBottom();
 
         try
         {
-            var response = await AIChatGateway.SendMessageAsync(request);
-            ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = true, Text = response.Response });
+            var response = await ChatService.SendChatAsync(UserRole, userMessage);
+            
+            ChatMessages.Add(new ChatMessage
+            {
+                Id = ChatMessages.Count + 1,
+                IsBot = true,
+                Text = response
+            });
         }
         catch (Exception ex)
         {
-            ChatMessages.Add(new ChatMessage { Id = ChatMessages.Count + 1, IsBot = true, Text = $"Fejl: {ex.Message}" });
+            var errorMessage = $"Beklager, der opstod en fejl: {ex.Message}";
+            if (ex.InnerException != null)
+            {
+                errorMessage += $" ({ex.InnerException.Message})";
+            }
+            ChatMessages.Add(new ChatMessage
+            {
+                Id = ChatMessages.Count + 1,
+                IsBot = true,
+                Text = errorMessage
+            });
+            Console.WriteLine($"Chatbot fejl: {ex}");
         }
-
-        CurrentMessage = "";
+        finally
+        {
+            IsLoading = false;
+            StateHasChanged();
+            await ScrollToBottom();
+        }
     }
 
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !e.ShiftKey && !IsLoading)
+        {
+            await SendMessage();
+        }
+    }
+
+    private async Task ScrollToBottom()
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("eval", 
+                "setTimeout(() => { const el = document.querySelector('.chatbot-body'); if (el) el.scrollTop = el.scrollHeight; }, 100);");
+        }
+        catch { }
+    }
 
     public class Content
     {
@@ -257,5 +360,10 @@
         public int Comments { get; set; }
     }
 
-    public class ChatMessage { public int Id { get; set; } public bool IsBot { get; set; } public string Text { get; set; } = ""; }
+    public class ChatMessage
+    {
+        public int Id { get; set; }
+        public bool IsBot { get; set; }
+        public string Text { get; set; } = "";
+    }
 }

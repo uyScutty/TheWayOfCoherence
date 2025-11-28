@@ -1,26 +1,26 @@
-﻿@page "/patient"
+@page "/admin/dashboard"
 @using Application.Abstractions.Contracts.Gateways
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @layout MainLayout
-@attribute [Authorize]
+@attribute [Authorize(Roles = "Admin")]
 
-<PageTitle>Patient - The Way of Coherence</PageTitle>
+<PageTitle>Admin Dashboard - The Way of Coherence</PageTitle>
 
-<div class="patient-container">
-    <div class="patient-header">
-        <h1>👤 Patient Portal</h1>
-        <p>Din personlige AI-assistent er klar til at hjælpe dig med spørgsmål om sundhed, behandling og velvære.</p>
+<div class="admin-dashboard-container">
+    <div class="admin-header">
+        <h1>👑 Admin Dashboard</h1>
+        <p>Administrer dit indhold, medlemmer og brug din AI-assistent til at hjælpe med administrative opgaver.</p>
     </div>
 
-    <div class="patient-content">
+    <div class="admin-content">
         <div class="info-card">
-            <h3>💡 Hvad kan jeg hjælpe med?</h3>
+            <h3>🛠️ Hvad kan jeg hjælpe med?</h3>
             <ul>
-                <li>Svar på spørgsmål om sundhed og velvære</li>
-                <li>Vejledning om behandlinger og metoder</li>
-                <li>Information om kohærens og naturlig sundhed</li>
-                <li>Generelle råd og vejledning</li>
+                <li>Administrative opgaver og spørgsmål</li>
+                <li>Vejledning om indholdsstyring</li>
+                <li>Hjælp med medlemsadministration</li>
+                <li>Generelle råd om platformen</li>
             </ul>
         </div>
     </div>
@@ -31,7 +31,7 @@
     <div class="chatbot-header">
         <div class="chatbot-title">
             <span>🤖</span>
-            <span>Patient AI Assistent</span>
+            <span>Admin AI Assistent</span>
         </div>
         <div class="chatbot-status">
             <span class="status-dot"></span>
@@ -81,16 +81,16 @@
     private ElementReference chatBodyRef;
     private List<ChatMessage> ChatMessages = new();
 
-    private const string UserRole = "patient";
+    private const string UserRole = "owner";
 
     protected override async Task OnInitializedAsync()
     {
-        // Add welcome message
+        // Add welcome message med "Hej Chef!"
         ChatMessages.Add(new ChatMessage
         {
             Id = 1,
             IsBot = true,
-            Text = "Hej! Jeg er din personlige patient-assistent. Jeg kan hjælpe dig med spørgsmål om sundhed, behandling og velvære. Hvad kan jeg hjælpe dig med i dag?"
+            Text = "Hej Chef! 👑 Jeg er din personlige AI-assistent. Jeg kan hjælpe dig med administrative opgaver, indholdsstyring og generelle spørgsmål om platformen. Hvad kan jeg hjælpe dig med i dag?"
         });
     }
 
@@ -155,7 +155,6 @@
                 IsBot = true,
                 Text = errorMessage
             });
-            // Log til console for debugging
             Console.WriteLine($"Chatbot fejl: {ex}");
         }
         finally
@@ -191,3 +190,4 @@
         public string Text { get; set; } = "";
     }
 }
+

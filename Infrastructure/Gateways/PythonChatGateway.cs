@@ -16,7 +16,7 @@ namespace Infrastructure.Gateways
         public PythonChatGateway(HttpClient http)
         {
             _http = http;
-            _http.BaseAddress = new Uri("http://localhost:8000"); // Din Python microservice
+            // BaseAddress bliver sat i ServiceCollectionExtensions, så vi skal ikke sætte den her igen
         }
 
         public async Task<string> SendChatAsync(string role, string message)

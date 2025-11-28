@@ -40,12 +40,11 @@ namespace TheWayOfCoherence.Controllers
 
             if (result.Succeeded)
             {
-                // Tjek brugerens rolle
+                // Tjek om brugeren er admin og redirect til dashboard, ellers til members
                 var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-                
                 return Ok(new { 
                     success = true, 
-                    redirectUrl = isAdmin ? "/owner" : "/patient" 
+                    redirectUrl = isAdmin ? "/admin/dashboard" : "/members" 
                 });
             }
             else if (result.IsLockedOut)
@@ -60,6 +59,15 @@ namespace TheWayOfCoherence.Controllers
             {
                 return Unauthorized(new { error = "Ugyldig email eller password." });
             }
+        }
+
+        [HttpPost("logout")]
+        [HttpGet("logout")] // Tillad både GET og POST
+        [IgnoreAntiforgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect("/");
         }
 
         public class LoginRequest

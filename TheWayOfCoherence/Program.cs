@@ -23,13 +23,23 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddControllersWithViews();
 
 // HttpClient for Blazor Server (til API kald)
-builder.Services.AddHttpClient();
-builder.Services.AddScoped(sp => 
+// Konfigurer HttpClient til at inkludere cookies
+builder.Services.AddHttpClient("WithCookies", client =>
 {
-    var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
-    var httpClient = httpClientFactory.CreateClient();
-    httpClient.BaseAddress = new Uri(sp.GetRequiredService<NavigationManager>().BaseUri);
-    return httpClient;
+    // Base address bliver sat i komponenten
+}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    UseCookies = true,
+    CookieContainer = new System.Net.CookieContainer()
+});
+
+// Standard HttpClient (uden cookies)
+builder.Services.AddHttpClient();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => false;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
 });
 
 // ------------------------------------------------------
@@ -43,20 +53,20 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration, aiBaseUrl);
 
 // ------------------------------------------------------
-// 3️⃣ Authentication & Authorization (custom login)
+// 3️⃣ Authentication & Authorization (Identity)
 // ------------------------------------------------------
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = "Cookies";
-    options.DefaultSignInScheme = "Cookies";
-    options.DefaultChallengeScheme = "Cookies";
-}).AddCookie("Cookies", options =>
-{
-    options.LoginPath = "/login";
-    options.AccessDeniedPath = "/access-denied";
-});
-
+// Identity er allerede konfigureret i AddInfrastructure med AddIdentity
+// AddIdentity konfigurerer automatisk cookie authentication
+// Vi skal bare tilføje authorization
 builder.Services.AddAuthorization();
+
+// Add HttpContextAccessor for authentication state provider
+builder.Services.AddHttpContextAccessor();
+
+// Add Blazor Server authentication state provider
+// Bruger custom ServerAuthenticationStateProvider der læser fra HttpContext
+builder.Services.AddScoped<Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider, 
+    TheWayOfCoherence.Services.ServerAuthenticationStateProvider>();
 
 // ------------------------------------------------------
 // 4️⃣ Build the app
@@ -75,6 +85,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseCookiePolicy();
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -84,15 +96,45 @@ app.MapRazorPages();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
-// Initialize roles
+// Initialize roles and admin user
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     
     // Create Admin role if it doesn't exist
     if (!await roleManager.RoleExistsAsync("Admin"))
     {
         await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+    }
+    
+    // Create admin user if it doesn't exist
+    var adminEmail = "Admin1";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new ApplicationUser
+        {
+            Id = Guid.NewGuid(),
+            UserName = adminEmail,
+            Email = adminEmail,
+            FullName = "Administrator",
+            CreatedAt = DateTime.UtcNow
+        };
+        
+        var result = await userManager.CreateAsync(adminUser, "Admin123");
+        if (result.Succeeded)
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
+    }
+    else
+    {
+        // Ensure admin user is in Admin role
+        if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+        {
+            await userManager.AddToRoleAsync(adminUser, "Admin");
+        }
     }
 }
 
