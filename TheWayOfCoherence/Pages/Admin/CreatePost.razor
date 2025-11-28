@@ -1,0 +1,195 @@
+@page "/admin/posts/create"
+@using Application.Features.Posts.Commands
+@using Application.Features.Posts.Queries
+@using MediatR
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@layout MainLayout
+@attribute [Authorize(Roles = "Admin")]
+
+<PageTitle>Opret Ny Post - Admin</PageTitle>
+
+<div class="admin-dashboard-container">
+    <div class="admin-header">
+        <h1>✍️ Opret Ny Post</h1>
+        <p>Opret et nyt blog indlæg eller sundhedstip.</p>
+    </div>
+
+    <div class="admin-content">
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="alert alert-danger" style="padding: 1rem; margin-bottom: 1rem; background: #f8d7da; color: #721c24; border-radius: 8px;">
+                @ErrorMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(SuccessMessage))
+        {
+            <div class="alert alert-success" style="padding: 1rem; margin-bottom: 1rem; background: #d4edda; color: #155724; border-radius: 8px;">
+                @SuccessMessage
+            </div>
+        }
+
+        <div class="form-container" style="max-width: 800px; margin: 0 auto;">
+            <EditForm Model="@PostForm" OnValidSubmit="@HandleSubmit">
+                <DataAnnotationsValidator />
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Titel *</label>
+                    <InputText class="form-control" @bind-Value="PostForm.Title" placeholder="Indtast post titel..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;" />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Kategori *</label>
+                    <InputSelect class="form-control" @bind-Value="PostForm.Category" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px;">
+                        <option value="">Vælg kategori...</option>
+                        <option value="Blog">Blog</option>
+                        <option value="HealthTip">Sundhedstip</option>
+                        <option value="Teknologi & Sundhed">Teknologi & Sundhed</option>
+                        <option value="Sundhed">Sundhed</option>
+                        <option value="Økonomi">Økonomi</option>
+                        <option value="Spiritualitet">Spiritualitet</option>
+                    </InputSelect>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label class="form-label" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Indhold *</label>
+                    <InputTextArea class="form-control" @bind-Value="PostForm.Body" rows="15" placeholder="Skriv dit indhold her... (Markdown understøttes)" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;" />
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <InputCheckbox @bind-Value="PostForm.IsPaywalled" />
+                        <span>Kræv medlemskab for at se dette indhold (Paywall)</span>
+                    </label>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <InputCheckbox @bind-Value="PostForm.PublishImmediately" />
+                        <span>Udgiv med det samme</span>
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 2rem;">
+                    <button type="button" class="btn btn-secondary" @onclick="Cancel" disabled="@IsSubmitting">
+                        Annuller
+                    </button>
+                    <button type="submit" class="btn btn-primary" disabled="@IsSubmitting">
+                        @(IsSubmitting ? "Gemmer..." : "Gem Post")
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Inject] private IMediator Mediator { get; set; } = null!;
+    [Inject] private NavigationManager Navigation { get; set; } = null!;
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+
+    private PostFormModel PostForm = new();
+    private bool IsSubmitting = false;
+    private string ErrorMessage = "";
+    private string SuccessMessage = "";
+    private Guid? CurrentUserId = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            var userIdClaim = user.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (Guid.TryParse(userIdClaim, out var userId))
+            {
+                CurrentUserId = userId;
+            }
+        }
+
+        if (CurrentUserId == null)
+        {
+            Navigation.NavigateTo("/login");
+        }
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (CurrentUserId == null)
+        {
+            ErrorMessage = "Du skal være logget ind for at oprette posts.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(PostForm.Title))
+        {
+            ErrorMessage = "Titel skal udfyldes.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(PostForm.Category))
+        {
+            ErrorMessage = "Kategori skal vælges.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(PostForm.Body))
+        {
+            ErrorMessage = "Indhold skal udfyldes.";
+            return;
+        }
+
+        IsSubmitting = true;
+        ErrorMessage = "";
+        SuccessMessage = "";
+        StateHasChanged();
+
+        try
+        {
+            var command = new CreatePostCommand(
+                CurrentUserId.Value,
+                PostForm.Title,
+                PostForm.Body,
+                PostForm.Category,
+                PostForm.IsPaywalled,
+                PostForm.PublishImmediately
+            );
+
+            var postId = await Mediator.Send(command);
+
+            SuccessMessage = PostForm.PublishImmediately 
+                ? $"Post oprettet og udgivet! ID: {postId}" 
+                : $"Post oprettet som kladde! ID: {postId}";
+
+            // Vent lidt og naviger tilbage
+            await Task.Delay(2000);
+            Navigation.NavigateTo("/admin/dashboard");
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Fejl ved oprettelse: {ex.Message}";
+        }
+        finally
+        {
+            IsSubmitting = false;
+            StateHasChanged();
+        }
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo("/admin/dashboard");
+    }
+
+    public class PostFormModel
+    {
+        public string Title { get; set; } = "";
+        public string Category { get; set; } = "";
+        public string Body { get; set; } = "";
+        public bool IsPaywalled { get; set; } = false;
+        public bool PublishImmediately { get; set; } = false;
+    }
+}
+

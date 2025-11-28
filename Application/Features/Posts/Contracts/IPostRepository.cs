@@ -12,5 +12,7 @@ namespace Application.Features.Posts.Contracts
     {
         Task<Post?> GetByIdAsync(Guid id);
         Task UpdateAsync(Post post);
+        Task<Guid> AddAsync(Post post);
+        Task<List<Post>> ListAsync(bool? isPublished = null, string? category = null);
     }
 }

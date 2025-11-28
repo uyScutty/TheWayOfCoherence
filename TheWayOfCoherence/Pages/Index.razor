@@ -1,6 +1,8 @@
 @page "/"
 @layout MainLayout
 @using Application.Features.Users.Commands
+@using Application.Features.Posts.Queries
+@using Application.Features.Posts.Dtos
 @using MediatR
 @using Microsoft.AspNetCore.Components.Authorization
 @inject NavigationManager Navigation
@@ -13,7 +15,7 @@
 
 <!-- Hero Section -->
 <section class="hero" id="home">
-    <h1>VEJEN TIL KOHÆRENS</h1>
+    <h1>VEJEN TIL COHERENSE</h1>
     <p class="hero-subtitle">Mestring af ens miljø er frihed og giver mere energi</p>
     <p class="hero-description">
         Intentionen med denne hjemmeside er at assistere udviklingen af vores fælles bevidsthed
@@ -236,27 +238,7 @@
         new Service { Id = 3, Icon = "📚", Title = "Personlig Konsultation", Description = "En times konsultation kan arrangeres efter aftale..." }
     };
 
-    private List<BlogPost> BlogPosts = new()
-    {
-        new BlogPost {
-            Id = 1, Icon = "📱", Category = "Teknologi & Sundhed",
-            Title = "Skærm: Børn med åben mund og lukkede ører",
-            Excerpt = "Udforsk hvordan skærmtid påvirker vores børns udvikling...",
-            PublishedDate = DateTime.Now.AddDays(-5)
-        },
-        new BlogPost {
-            Id = 2, Icon = "🎗️", Category = "Sundhed",
-            Title = "Hvad jeg ville gøre med kræft",
-            Excerpt = "En holistisk tilgang til forebyggelse og håndtering...",
-            PublishedDate = DateTime.Now.AddDays(-10)
-        },
-        new BlogPost {
-            Id = 3, Icon = "💰", Category = "Økonomi",
-            Title = "Bitcoin & Pengerevolutionen",
-            Excerpt = "Forstå hvorfor decentraliseret valuta kan give frihed...",
-            PublishedDate = DateTime.Now.AddDays(-15)
-        }
-    };
+    private List<BlogPost> BlogPosts = new();
 
     private List<AiBot> AiBots = new()
     {
@@ -266,6 +248,63 @@
     };
 
     // ---- Methods used by markup ----
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadBlogPosts();
+    }
+
+    private async Task LoadBlogPosts()
+    {
+        try
+        {
+            var query = new ListPostsQuery(isPublished: true);
+            var posts = await Mediator.Send(query);
+
+            BlogPosts = posts.Select(p => new BlogPost
+            {
+                Id = (int)p.Id.GetHashCode(), // Convert Guid to int for display
+                Icon = GetIconForCategory(p.Category),
+                Category = p.Category,
+                Title = p.Title,
+                Excerpt = GetExcerpt(p.Body, 100),
+                PublishedDate = p.CreatedAt
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            // Hvis der ikke er nogen posts endnu, brug tom liste
+            BlogPosts = new List<BlogPost>();
+        }
+    }
+
+    private string GetIconForCategory(string category)
+    {
+        return category.ToLower() switch
+        {
+            var c when c.Contains("teknologi") || c.Contains("skærm") => "📱",
+            var c when c.Contains("sundhed") || c.Contains("kræft") => "🎗️",
+            var c when c.Contains("økonomi") || c.Contains("bitcoin") => "💰",
+            var c when c.Contains("spiritualitet") || c.Contains("meditation") => "🧘",
+            var c when c.Contains("videnskab") => "🔬",
+            _ => "📝"
+        };
+    }
+
+    private string GetExcerpt(string body, int maxLength)
+    {
+        if (string.IsNullOrWhiteSpace(body))
+            return "...";
+
+        // Fjern markdown/html tags for en ren tekst
+        var plainText = System.Text.RegularExpressions.Regex.Replace(body, "<.*?>", "");
+        plainText = System.Text.RegularExpressions.Regex.Replace(plainText, @"\[.*?\]\(.*?\)", "");
+
+        if (plainText.Length <= maxLength)
+            return plainText;
+
+        return plainText.Substring(0, maxLength).TrimEnd() + "...";
+    }
+
     private async Task ScrollToSection(string sectionId)
         => await JSRuntime.InvokeVoidAsync("scrollToElement", sectionId);
 

@@ -1,0 +1,72 @@
+services:
+  # SQL Server Database
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: coherence-db
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    networks:
+      - coherence-network
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'YourStrong@Password123' -C -Q 'SELECT 1' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 60s
+    restart: unless-stopped
+
+  # Blazor Application
+  webapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: coherence-webapp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      # Connection string - brug quotes hvis password indeholder special characters
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=TheWayOfCoherenceDb;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True;MultipleActiveResultSets=True;Connection Timeout=60;
+      - AIService__BaseUrl=http://ai-service:8000
+    ports:
+      - "8080:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    networks:
+      - coherence-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Optional: AI Service (Python) - if you have one
+  # ai-service:
+  #   image: python:3.11-slim
+  #   container_name: coherence-ai
+  #   working_dir: /app
+  #   volumes:
+  #     - ./ai-service:/app
+  #   command: python -m uvicorn main:app --host 0.0.0.0 --port 8000
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - coherence-network
+  #   restart: unless-stopped
+
+volumes:
+  sqlserver-data:
+    driver: local
+
+networks:
+  coherence-network:
+    driver: bridge
+

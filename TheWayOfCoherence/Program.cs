@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Http;
 using Microsoft.AspNetCore.Components;
@@ -79,12 +80,46 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
+    // HSTS (HTTP Strict Transport Security) - Force HTTPS
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// Security Headers
+app.Use(async (context, next) =>
+{
+    // Remove server header for security
+    context.Response.Headers.Remove("Server");
+    
+    // Add security headers
+    context.Response.Headers.Append("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Append("X-Frame-Options", "DENY");
+    context.Response.Headers.Append("X-XSS-Protection", "1; mode=block");
+    context.Response.Headers.Append("Referrer-Policy", "strict-origin-when-cross-origin");
+    
+    // Content Security Policy (CSP) - adjust as needed for your app
+    if (!app.Environment.IsDevelopment())
+    {
+        context.Response.Headers.Append("Content-Security-Policy", 
+            "default-src 'self'; " +
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval'; " +
+            "style-src 'self' 'unsafe-inline'; " +
+            "img-src 'self' data: https:; " +
+            "font-src 'self' data:; " +
+            "connect-src 'self' https:;");
+    }
+    
+    await next();
+});
+
+// HTTPS Redirection - only in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 
+// Cookie Policy - Secure in production
 app.UseCookiePolicy();
 
 app.UseRouting();
@@ -97,45 +132,55 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 // Initialize roles and admin user
-using (var scope = app.Services.CreateScope())
+// Wrap in try-catch to handle cases where migrations haven't run yet
+try
 {
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-    
-    // Create Admin role if it doesn't exist
-    if (!await roleManager.RoleExistsAsync("Admin"))
+    using (var scope = app.Services.CreateScope())
     {
-        await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
-    }
-    
-    // Create admin user if it doesn't exist
-    var adminEmail = "Admin1";
-    var adminUser = await userManager.FindByEmailAsync(adminEmail);
-    if (adminUser == null)
-    {
-        adminUser = new ApplicationUser
-        {
-            Id = Guid.NewGuid(),
-            UserName = adminEmail,
-            Email = adminEmail,
-            FullName = "Administrator",
-            CreatedAt = DateTime.UtcNow
-        };
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         
-        var result = await userManager.CreateAsync(adminUser, "Admin123");
-        if (result.Succeeded)
+        // Create Admin role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("Admin"))
         {
-            await userManager.AddToRoleAsync(adminUser, "Admin");
+            await roleManager.CreateAsync(new IdentityRole<Guid>("Admin"));
+        }
+        
+        // Create admin user if it doesn't exist
+        var adminEmail = "Admin1@admin.com";
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+        if (adminUser == null)
+        {
+            adminUser = new ApplicationUser
+            {
+                Id = Guid.NewGuid(),
+                UserName = adminEmail,
+                Email = adminEmail,
+                FullName = "Administrator",
+                CreatedAt = DateTime.UtcNow
+            };
+            
+            var result = await userManager.CreateAsync(adminUser, "Admin123");
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
+        }
+        else
+        {
+            // Ensure admin user is in Admin role
+            if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
         }
     }
-    else
-    {
-        // Ensure admin user is in Admin role
-        if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
-        {
-            await userManager.AddToRoleAsync(adminUser, "Admin");
-        }
-    }
+}
+catch (Exception ex)
+{
+    // Log error but don't crash the app - migrations might not have run yet
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogWarning(ex, "Failed to initialize roles and admin user. This is normal if migrations haven't run yet.");
 }
 
 app.Run();
