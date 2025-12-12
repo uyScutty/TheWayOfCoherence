@@ -1,6 +1,5 @@
-using Infrastructure.Identity;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
+using Application.Features.Auth.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TheWayOfCoherence.Controllers
@@ -9,56 +8,32 @@ namespace TheWayOfCoherence.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMediator _mediator;
 
-        public AuthController(
-            SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+        public AuthController(IMediator mediator)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _mediator = mediator;
         }
 
         [HttpPost("login")]
         [IgnoreAntiforgeryToken] // Tillad cross-origin requests fra Blazor
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            if (string.IsNullOrWhiteSpace(request.Email) || string.IsNullOrWhiteSpace(request.Password))
-            {
-                return BadRequest(new { error = "Email og password skal udfyldes." });
-            }
-
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            
-            if (user == null)
-            {
-                return Unauthorized(new { error = "Ugyldig email eller password." });
-            }
-
-            var result = await _signInManager.PasswordSignInAsync(user, request.Password, true, lockoutOnFailure: false);
+            var result = await _mediator.Send(new LoginCommand(
+                request.Email,
+                request.Password,
+                request.RememberMe));
 
             if (result.Succeeded)
             {
-                // Tjek om brugeren er admin og redirect til dashboard, ellers til members
-                var isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
-                return Ok(new { 
-                    success = true, 
-                    redirectUrl = isAdmin ? "/admin/dashboard" : "/members" 
+                return Ok(new
+                {
+                    success = true,
+                    redirectUrl = result.IsAdmin ? "/admin/dashboard" : "/members"
                 });
             }
-            else if (result.IsLockedOut)
-            {
-                return Unauthorized(new { error = "Din konto er låst. Prøv igen senere." });
-            }
-            else if (result.IsNotAllowed)
-            {
-                return Unauthorized(new { error = "Du har ikke tilladelse til at logge ind." });
-            }
-            else
-            {
-                return Unauthorized(new { error = "Ugyldig email eller password." });
-            }
+
+            return Unauthorized(new { error = result.ErrorMessage ?? "Ugyldig email eller password." });
         }
 
         [HttpPost("logout")]
@@ -66,7 +41,7 @@ namespace TheWayOfCoherence.Controllers
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _mediator.Send(new LogoutCommand());
             return Redirect("/");
         }
 
@@ -74,6 +49,7 @@ namespace TheWayOfCoherence.Controllers
         {
             public string Email { get; set; } = "";
             public string Password { get; set; } = "";
+            public bool RememberMe { get; set; } = true;
         }
     }
 }

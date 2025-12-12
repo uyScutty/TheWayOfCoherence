@@ -1,4 +1,4 @@
-﻿using Application.Features.UserProfiles.Commands;
+using Application.Features.UserProfiles.Commands;
 using Application.Features.UserProfiles.Dtos;
 using Application.Features.UserProfiles.Interfaces;
 using Application.Features.UserProfiles.Mappers;
@@ -24,7 +24,8 @@ namespace Application.Features.UserProfiles.Handlers {
             if (profile == null)
                 throw new Exception("UserProfile not found");
 
-         
+            profile.UpdateProfile(cmd.Age, cmd.Gender, cmd.HealthNote);
+
             // 3) Persistér
             await _repo.UpdateAsync(profile, ct);
             await _repo.SaveChangesAsync(ct);

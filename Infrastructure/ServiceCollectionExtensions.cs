@@ -1,4 +1,4 @@
-﻿using Application.Abstractions.Contracts;
+using Application.Abstractions.Contracts;
 using Application.Abstractions.Contracts.Gateways;
 using Application.Features.Contact.Interfaces;
 using Application.Features.Membership.Interfaces;
@@ -40,6 +40,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IEmailNotifier, EmailNotifierSmtp>();
         services.AddScoped<IMembershipRepository, MembershipRepository>();
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IUserLookupService, UserLookupService>();
 

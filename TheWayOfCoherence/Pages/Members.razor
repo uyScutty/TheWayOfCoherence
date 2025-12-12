@@ -2,10 +2,14 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @using System.Security.Claims
 @using Application.Abstractions.Contracts.Gateways
+@using Application.Features.Posts.Dtos
+@using Application.Features.Posts.Queries
+@using MediatR
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject NavigationManager Navigation
 @inject IChatService ChatService
 @inject IJSRuntime JSRuntime
+@inject IMediator Mediator
 @attribute [Authorize]
 @layout MainLayout
 
@@ -179,11 +183,7 @@
     private List<Content> AllContent = new();
     private List<Content> FilteredContent = new();
 
-    private Dictionary<string, string> Categories = new() {
-        { "health", "Sundhed" }, { "spirituality", "Spiritualitet" },
-        { "meditation", "Meditation" }, { "nutrition", "Ernæring" },
-        { "reviews", "Anmeldelser" }
-    };
+    private Dictionary<string, string> Categories = new();
 
     private Dictionary<string, string> ContentTypes = new() {
         { "all", "Alt Indhold" }, { "video", "🎥 Videoer" },
@@ -212,8 +212,7 @@
         }
 
         // Load content
-        LoadContent();
-        FilteredContent = AllContent;
+        await LoadContentAsync();
 
         // Add welcome message til chatbot
         ChatMessages.Add(new ChatMessage
@@ -233,35 +232,126 @@
     }
 
 
-    private void LoadContent()
+    private async Task LoadContentAsync()
     {
-        AllContent = new() {
-            new Content { Id=1, Type="video", TypeLabel="VIDEO", Icon="🎥",
-                Category="Meditation", Title="Dyb Meditation", Excerpt="45 min guidet meditation...",
-                Duration="45 min", PublishedDate=DateTime.Now.AddDays(-2),
-                IsMembersOnly=true, Likes=24, Comments=8 },
-            new Content { Id=2, Type="blog", TypeLabel="ARTIKEL", Icon="📖",
-                Category="Anmeldelse", Title="The Science of Heart", Excerpt="Forskning i hjertets intelligens...",
-                Duration="8 min", PublishedDate=DateTime.Now.AddDays(-10),
-                IsMembersOnly=false, Likes=42, Comments=15 }
+        var posts = await Mediator.Send(new ListPostsQuery(isPublished: true));
+
+        AllContent = posts.Select(MapPostToContent).ToList();
+        Categories = AllContent
+            .Where(c => !string.IsNullOrWhiteSpace(c.Category))
+            .GroupBy(c => c.Category)
+            .OrderBy(g => g.Key)
+            .ToDictionary(g => g.Key, g => g.Key);
+
+        FilteredContent = GetFilteredContent(CurrentFilter, CurrentCategory);
+    }
+
+    private List<Content> GetFilteredContent(string typeKey, string categoryKey)
+    {
+        IEnumerable<Content> query = AllContent;
+
+        if (!string.IsNullOrWhiteSpace(typeKey) && typeKey != "all")
+        {
+            query = query.Where(c => string.Equals(c.Type, typeKey, StringComparison.OrdinalIgnoreCase));
+        }
+
+        if (!string.IsNullOrWhiteSpace(categoryKey))
+        {
+            query = query.Where(c => string.Equals(c.Category, categoryKey, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return query.ToList();
+    }
+
+    private Content MapPostToContent(PostDto dto)
+    {
+        var type = InferType(dto.Category);
+        return new Content
+        {
+            Id = dto.Id,
+            Type = type,
+            TypeLabel = type switch
+            {
+                "video" => "VIDEO",
+                "audio" => "LYD",
+                "course" => "KURSUS",
+                _ => "ARTIKEL"
+            },
+            Icon = GetIconForCategory(dto.Category),
+            Category = dto.Category,
+            Title = dto.Title,
+            Excerpt = BuildExcerpt(dto.Body, 160),
+            Duration = CalculateDuration(dto.Body),
+            PublishedDate = dto.CreatedAt,
+            IsMembersOnly = dto.IsPaywalled,
+            Likes = 0,
+            Comments = 0
         };
+    }
+
+    private static string InferType(string category)
+    {
+        var value = category?.ToLowerInvariant() ?? string.Empty;
+        if (value.Contains("video")) return "video";
+        if (value.Contains("audio")) return "audio";
+        if (value.Contains("kursus") || value.Contains("course")) return "course";
+        return "blog";
+    }
+
+    private static string GetIconForCategory(string category)
+    {
+        var value = category?.ToLowerInvariant() ?? string.Empty;
+        if (value.Contains("meditation") || value.Contains("spiritual"))
+            return "🧘";
+        if (value.Contains("video"))
+            return "🎥";
+        if (value.Contains("sundhed") || value.Contains("health"))
+            return "🌿";
+        if (value.Contains("økonomi") || value.Contains("bitcoin"))
+            return "💰";
+        return "📖";
+    }
+
+    private static string BuildExcerpt(string body, int maxLength)
+    {
+        if (string.IsNullOrWhiteSpace(body))
+            return "...";
+
+        var plainText = System.Text.RegularExpressions.Regex.Replace(body, "<.*?>", string.Empty);
+        plainText = System.Text.RegularExpressions.Regex.Replace(plainText, @"\[.*?\]\(.*?\)", string.Empty);
+
+        if (plainText.Length <= maxLength)
+            return plainText;
+
+        return plainText.Substring(0, maxLength).TrimEnd() + "...";
+    }
+
+    private static string CalculateDuration(string body)
+    {
+        if (string.IsNullOrWhiteSpace(body))
+        {
+            return "3 min";
+        }
+
+        var minutes = Math.Clamp(body.Length / 600, 3, 20);
+        return $"{minutes} min";
     }
 
     private void FilterContent(string type)
     {
         CurrentFilter = type;
-        FilteredContent = type == "all" ? AllContent : AllContent.Where(c => c.Type == type).ToList();
+        FilteredContent = GetFilteredContent(CurrentFilter, CurrentCategory);
     }
 
     private void FilterByCategory(string category)
     {
-        CurrentCategory = category;
-        FilteredContent = AllContent.Where(c => c.Category.ToLower().Contains(Categories[category].ToLower())).ToList();
+        CurrentCategory = CurrentCategory == category ? "" : category;
+        FilteredContent = GetFilteredContent(CurrentFilter, CurrentCategory);
     }
 
-    private void LikeContent(int id) => AllContent.First(c => c.Id == id).Likes++;
+    private void LikeContent(Guid id) => AllContent.First(c => c.Id == id).Likes++;
 
-    private void CommentContent(int id) => Navigation.NavigateTo($"/content/{id}#comments");
+    private void CommentContent(Guid id) => Navigation.NavigateTo($"/content/{id}#comments");
 
     private void ToggleChat()
     {
@@ -346,7 +436,7 @@
 
     public class Content
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Type { get; set; } = "";
         public string TypeLabel { get; set; } = "";
         public string Icon { get; set; } = "";
